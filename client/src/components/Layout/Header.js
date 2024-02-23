@@ -65,7 +65,7 @@ const Header = () => {
               </> ) : ( <>
               
                 <li className="nav-item">
-                <NavLink onClick={handleLogout} to="/login" className="nav-link">
+                <NavLink onClick={handleLogout} to="/" className="nav-link">
                   Logout
                 </NavLink>
               </li>

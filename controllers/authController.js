@@ -2,6 +2,52 @@ import customerModel from "../models/customerModel.js"
 import employeeModel from "../models/employeeModel.js";
 import {hashPassword,comparePassword} from './../helpers/authHelper.js';
 import JWT from "jsonwebtoken";
+import nodemailer from 'nodemailer';
+
+
+
+///Mail Sending function
+const sendEmail = async (to, subject, text) => {
+    try {
+      // Create reusable transporter object using the default SMTP transport
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'azwad.aziz2002@gmail.com', // Your email
+          pass: 'hvhk xzxa fnly lzcq', // Your password
+        },
+      });
+  
+      // Send mail with defined transport object
+      let info = await transporter.sendMail({
+        from: '"Abar Porun" <your@gmail.com>', // Sender address
+        to: to, // List of receivers
+        subject: subject, // Subject line
+        text: text, // Plain text body
+      });
+  
+      console.log('Message sent: %s', info.messageId);
+    } catch (error) {
+      console.error('Error occurred while sending email:', error);
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ///Customer Register
@@ -67,8 +113,12 @@ export const registerController = async (req,res ) => {
         res.status(201).send({
             success:true,
             message:"User Registered Successfully"
-            
         })
+
+        
+
+        // Sending email
+        await sendEmail(Email, 'Welcome!', 'Thank you for registering.');
 
     }catch (error){
 

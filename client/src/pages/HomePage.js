@@ -11,7 +11,7 @@ const HomePage = () => {
   return (
     <Layout title={"Abaar Porun"}>
       
-      <pre>{JSON.stringify(auth,null,4)}</pre>
+      
     </Layout>
   );
 };
