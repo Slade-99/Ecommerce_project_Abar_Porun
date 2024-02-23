@@ -75,15 +75,16 @@ const handleSubmit = async (e) => {
 };
 
   return (
-    <Layout title="Login">
-        <div className='login'>
-        <h1>Login</h1>
+<Layout title="Register">
+        <div className='register'>
+        <h1>Register Page</h1>
 
-
+<div class="wrapper2">
 <form onSubmit={handleSubmit}>
+<h1>Login</h1>
   <div className="mb-3">
-    <label htmlFor="exampleInputID" className="form-label">ID</label>
-    <input value = {ID} required onChange={(e) =>setID(e.target.value)}   type="text" className="form-control" id="exampleInputID" aria-describedby="emailHelp" />
+    <label htmlFor="exampleInputEmail1" className="form-label">ID</label>
+    <input value = {ID} required onChange={(e) =>setID(e.target.value)}   type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
     
   </div>
   <div className="mb-3">
@@ -97,10 +98,9 @@ const handleSubmit = async (e) => {
 
 
 
-  
   <button type="submit" className="btn btn-primary">Submit</button>
 </form>
-
+</div>
 
         </div>
     </Layout>

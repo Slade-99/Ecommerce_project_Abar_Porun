@@ -45,8 +45,9 @@ const handleSubmit = async (e) => {
         <div className='register'>
         <h1>Register Page</h1>
 
-
+<div class="wrapper">
 <form onSubmit={handleSubmit}>
+<h1>Register</h1>
   <div className="mb-3">
     <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
     <input value = {Email} required onChange={(e) =>setEmail(e.target.value)}   type="Email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
@@ -82,13 +83,9 @@ const handleSubmit = async (e) => {
 
 
 
-  <div className="mb-3 form-check">
-    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-    <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-  </div>
   <button type="submit" className="btn btn-primary">Submit</button>
 </form>
-
+</div>
 
         </div>
     </Layout>

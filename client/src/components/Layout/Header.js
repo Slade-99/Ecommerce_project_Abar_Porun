@@ -12,6 +12,7 @@ const Header = () => {
   }
   return (
     <>
+    <div className="navbar-container">
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <button
@@ -88,6 +89,7 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      </div>
     </>
   );
 };

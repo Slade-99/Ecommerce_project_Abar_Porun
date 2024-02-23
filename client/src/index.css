@@ -6,20 +6,70 @@
   box-sizing: border-box;
 }
 
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('background.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* Ensure the background image is behind other content */
+}
 /* font-family: 'Poppins', sans-serif; */
 /* font-family: 'Playfair Display', serif; */
+.navbar-container {
+  position: relative;
+  width: 100%;
+  height: 60px; /* Adjust the height of the navbar */
+  z-index: 99; /* Set a high z-index to ensure it's displayed above other content */
+}
 
-/* //navbar css */
 .navbar {
   font-family: "Poppins", sans-serif;
+  background-color: rgba(232, 26, 26, 0.5); /* Set the background color to transparent */
   font-size: 17px;
   line-height: 26px;
   text-transform: uppercase;
-  box-shadow: 0 8px 6px -6px gray;
-  --webkit-box-shadow: 0 8px 6px -6px gray;
-  border-bottom: solid gray !important;
+  box-shadow: 0 8px 6px -6px rgb(187, 147, 147);
+  --webkit-box-shadow: 0 8px 6px -6px rgb(213, 33, 33);
+  border-bottom: solid rgb(147, 146, 146) !important;
+  position: absolute; /* Position the navbar absolutely */
+  top: 0; /* Align it to the top */
+  width: 100%; /* Make it span the entire width */
+  
+}
+.nav-link {
+  color: #000000eb; /* Set text color to white */
+  transition: color 0.5s ease; /* Smooth transition for color change */
+}
+.navbar-brand {
+  color: #090808; /* Set text color to white */
+  font-size: 1.5rem; /* Set font size */
+}
+.navbar-toggler-icon {
+  background-color: #8e1f1f; /* Set background color for the navbar toggler icon */
 }
 
+/* Add padding to the navbar links */
+.navbar-nav {
+  padding: 0 20px;
+}
+
+/* Add margin to the navbar links */
+.navbar-nav .nav-item {
+  margin: 0 10px;
+}
+
+/* Hover effect for navbar items */
+.nav-link:hover {
+  color: #000000;
+  background: #fcfcfa;
+      color: rgb(243, 196, 11);
+   /* Change text color on hover */
+}
 .nav-link {
   font-weight: 300 !important;
 }
@@ -28,15 +78,20 @@
   border-bottom: 2px solid black;
 }
 
+/* Apply styles when hovering over the .active element */
+
+
 .navbar-brand {
   font-weight: 700;
   font-family: "roboto", sans-serif;
   letter-spacing: 3px;
 }
+
 /* =============================
 ==========footer============= */
 
 .footer {
+  background-color: transparent;
   color: white;
   padding: 25px;
   background: #000000; /* fallback for old browsers */
@@ -60,6 +115,110 @@
 }
 /* =================================
 ======== page not found css ======= */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*      REgistration FORM*/
+
+.wrapper {
+  position: absolute; /* Change position to absolute */
+  bottom: 55px;; /* Align to the bottom */
+  width: 800px;
+  height: 800px; /* Initial height */
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  
+}
+.wrapper2 {
+  position: absolute; /* Change position to absolute */
+  bottom: 250px;; /* Align to the bottom */
+  width: 500px;
+  height: 500px; /* Initial height */
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  
+}
+
+.wrapper.active-popup {
+  transform: scale(1);
+}
+
+.wrapper.active {
+  height: 520px;
+}
+
+.wrapper .form-box {
+  width: 100%;
+  padding: 40px;
+}
+
+.wrapper .icon-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45px;
+  height: 45px;
+  background: #eff0f1;
+  font-size: 2em;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+  z-index: 1;
+
+}
+
+.form-control {
+  background-color: rgba(255, 255, 255, 0.4); /* Example: 50% transparent white */
+  border-color: rgba(0, 0, 0, 0.1); /* Example: 10% transparent black border */
+  color: #000; /* Adjust text color as needed */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .pnf {
   display: flex;
   min-height: 65vh;
