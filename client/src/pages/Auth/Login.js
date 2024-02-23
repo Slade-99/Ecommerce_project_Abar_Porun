@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import Layout from "./../../components/Layout/Layout"
 import {toast} from 'react-toastify'
 import axios from 'axios'
+import { useAuth } from '../../context/auth'
 import { useNavigate } from "react-router-dom";
 
 
@@ -9,8 +10,8 @@ const Login = () => {
     const [ID,setID] = useState("");
     
     const [Password,setPassword] = useState("");
-    
-
+    const [auth,setAuth] = useAuth()
+    const navigate = useNavigate();
 // form function
 const handleSubmit = async (e) => {
     e.preventDefault()
@@ -21,22 +22,40 @@ const handleSubmit = async (e) => {
         
         {Customer_ID,Password});
         if(res.data.success){
-            toast.success("User Logged IN  Successfully")
-            //navigate('/login/customer');
+            toast.success(res.data && res.data.message);
+            setAuth({
+              ...auth,
+              user: "C",
+              customer: res.data.customer,
+              token: res.data.token,
+            });
+            localStorage.setItem('auth',JSON.stringify(res.data));
+            navigate('/');
         }else{
             toast.error(res.data.message)
         }
+      
+      
+      
+      
       }else{
         const Employee_ID=ID
-        const res = await axios.post('/api/v1/auth/login/customer',
+        const res = await axios.post('/api/v1/auth/login/employee',
         
         {Employee_ID,Password});
         if(res.data.success){
-            toast.success("User Logged IN  Successfully")
-            //navigate('/login/customer');
-        }else{
-            toast.error(res.data.message)
-        }
+          toast.success(res.data && res.data.message);
+          setAuth({
+            ...auth,
+            user: "E",
+            employee: res.data.employee,
+            token: res.data.token,
+          });
+          localStorage.setItem('auth',JSON.stringify(res.data));
+          navigate('/');
+      }else{
+          toast.error(res.data.message)
+      }
       }
     
     

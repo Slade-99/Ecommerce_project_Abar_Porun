@@ -309,7 +309,7 @@ export const loginController2 = async (req,res) => {
         res.status(200).send({
             success:true,
             message:"login successful",
-            customer:{
+            employee:{
                 name:employee.Name,
                 email:employee.Type
 
