@@ -4,8 +4,11 @@ import Pagenotfound from './pages/Pagenotfound';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Register from './pages/Auth/Register';
+import Login from './pages/Auth/Login';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from './pages/user/dashboard';
+import PrivateRoute from './components/Routes/Private';
 
 function App() {
   return (
@@ -14,7 +17,13 @@ function App() {
 
 
     <Route  path='/' element={<HomePage/>}/>
+    <Route  path='/dashboard' element={<PrivateRoute/>}>
+    <Route  path='' element={<Dashboard/>}/>
+    
+    </Route>
     <Route  path='/register' element={<Register/>}/>
+    <Route  path='/login' element={<Login/>}/>
+    
     <Route  path='/about' element={<About/>}/>
     <Route  path='/contact' element={<Contact/>}/>
     <Route  path='*' element={<Pagenotfound/>}/>

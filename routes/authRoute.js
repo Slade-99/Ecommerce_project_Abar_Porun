@@ -26,3 +26,10 @@ export default router
 
 // Test Route
 router.get('/test' , requireSignIn,  testController)
+
+
+
+//protected Routes
+router.get('/user-auth',requireSignIn, (req,res) =>{
+    res.status(200).send({ok:true})
+})

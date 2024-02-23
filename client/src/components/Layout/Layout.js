@@ -22,6 +22,14 @@ const Layout = ({children,title,description,keywords,author}) => {
     
     
     <Header/>
+
+    <div className="background-image"/>
+
+  
+    
+    
+    
+    
     <main style={{minHeight:"90vh"}}> <ToastContainer/>{children}</main>
     <Footer/>
 
