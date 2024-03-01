@@ -24,7 +24,7 @@ const handleSubmit = async (e) => {
         {Name,Password,Email,Address,Phone,Gender});
         if(res.data.success){
             toast.success("User Registered Successfully")
-            navigate('/login/customer');
+            navigate('/login');
         }else{
             toast.error(res.data.message)
         }

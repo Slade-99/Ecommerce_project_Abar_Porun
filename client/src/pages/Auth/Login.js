@@ -30,7 +30,7 @@ const handleSubmit = async (e) => {
               token: res.data.token,
             });
             localStorage.setItem('auth',JSON.stringify(res.data));
-            navigate('/dashboard');
+            navigate('/dashboard/customer');
         }else{
             toast.error(res.data.message)
         }
@@ -38,6 +38,42 @@ const handleSubmit = async (e) => {
       
       
       
+      }else if(ID[1]=="A"){
+        const Employee_ID=ID
+        const res = await axios.post('/api/v1/auth/login/employee',
+        
+        {Employee_ID,Password});
+        if(res.data.success){
+          toast.success(res.data && res.data.message);
+          setAuth({
+            ...auth,
+            user: "EA",
+            employee: res.data.employee,
+            token: res.data.token,
+          });
+          localStorage.setItem('auth',JSON.stringify(res.data));
+          navigate('/dashboard/employee_admin');
+      }else{
+          toast.error(res.data.message)
+      }
+      }else if(ID[1]=="C"){
+        const Employee_ID=ID
+        const res = await axios.post('/api/v1/auth/login/employee',
+        
+        {Employee_ID,Password});
+        if(res.data.success){
+          toast.success(res.data && res.data.message);
+          setAuth({
+            ...auth,
+            user: "EC",
+            employee: res.data.employee,
+            token: res.data.token,
+          });
+          localStorage.setItem('auth',JSON.stringify(res.data));
+          navigate('/dashboard/employee_communication_officer');
+      }else{
+          toast.error(res.data.message)
+      }
       }else{
         const Employee_ID=ID
         const res = await axios.post('/api/v1/auth/login/employee',
@@ -47,12 +83,12 @@ const handleSubmit = async (e) => {
           toast.success(res.data && res.data.message);
           setAuth({
             ...auth,
-            user: "E",
+            user: "ED",
             employee: res.data.employee,
             token: res.data.token,
           });
           localStorage.setItem('auth',JSON.stringify(res.data));
-          navigate('/dashboard');
+          navigate('/dashboard/employee_delivery_man');
       }else{
           toast.error(res.data.message)
       }
@@ -61,6 +97,12 @@ const handleSubmit = async (e) => {
     
     
     
+
+
+
+
+
+
     
       }catch(error){
         console.log(error)
