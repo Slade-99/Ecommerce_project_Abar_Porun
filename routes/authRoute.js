@@ -7,7 +7,7 @@ import { registerController,
 
 
 } from '../controllers/authController.js'
-import { requireSignIn } from '../middlewares/authMiddleware.js'
+import { requireSignIn,isAdmin } from '../middlewares/authMiddleware.js'
 
 
 
@@ -31,5 +31,11 @@ router.get('/test' , requireSignIn,  testController)
 
 //protected Routes
 router.get('/user-auth',requireSignIn, (req,res) =>{
+    res.status(200).send({ok:true})
+})
+
+
+//protected for admin Routes
+router.get('/employee-auth',requireSignIn, isAdmin, (req,res) =>{
     res.status(200).send({ok:true})
 })

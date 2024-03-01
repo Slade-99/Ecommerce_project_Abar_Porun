@@ -9,6 +9,19 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './pages/user/dashboard';
 import PrivateRoute from './components/Routes/Private';
+import AdminRoute from './components/Routes/AdminRoute';
+import AdminDashboard from './pages/Employee/AdminDashboard';
+import Communication_Officer_Dashboard from './pages/Employee/Communication_Officer_Dashboard';
+import Delivery_Man_Dashboard from './pages/Employee/Delivery_Man_Dashboard';
+import Communication_Officer_Route from './components/Routes/Communication_Officer_Route';
+import Delivery_Man_Route from './components/Routes/Delivery_Man_Route';
+import CreateCategory from './pages/Employee/Create_Category';
+import CreateProduct from './pages/Employee/Create_Product';
+import Users from './pages/Employee/Users';
+import Orders from './pages/user/orders';
+import Profile from './pages/user/profile';
+import Check_Pending_Deliveries from './pages/Employee/Check_Pending_Deliveries';
+import Check_Conversations from './pages/Employee/Check_Conversations';
 
 function App() {
   return (
@@ -17,10 +30,39 @@ function App() {
 
 
     <Route  path='/' element={<HomePage/>}/>
-    <Route  path='/dashboard' element={<PrivateRoute/>}>
-    <Route  path='' element={<Dashboard/>}/>
     
+    
+    
+    
+    
+    <Route  path='/dashboard' element={<PrivateRoute/>}>
+    <Route  path='customer/profile' element={<Profile/>}/>
+    <Route  path='customer/orders' element={<Orders/>}/>
+    <Route  path='customer' element={<Dashboard/>}/>
     </Route>
+    
+    
+
+    <Route  path='/dashboard' element={<AdminRoute/>}>
+    <Route  path='employee_admin' element={<AdminDashboard/>}/>
+    <Route  path='employee_admin/create_category' element={<CreateCategory/>}/>
+    <Route  path='employee_admin/create_product' element={<CreateProduct/>}/>
+    <Route  path='employee_admin/users' element={<Users/>}/>
+    </Route>
+
+
+    <Route  path='/dashboard' element={<Communication_Officer_Route/>}>
+    <Route  path='employee_communication_officer' element={<Communication_Officer_Dashboard/>}/>
+    <Route  path='employee_communication_officer/check_conversations' element={<Check_Conversations/>}/>
+    </Route>
+
+
+    <Route  path='/dashboard' element={<Delivery_Man_Route/>}>
+    <Route  path='employee_delivery_man' element={<Delivery_Man_Dashboard/>}/>
+    <Route  path='employee_delivery_man/check_pending_deliveries' element={<Check_Pending_Deliveries/>}/>
+    </Route>
+    
+    
     <Route  path='/register' element={<Register/>}/>
     <Route  path='/login' element={<Login/>}/>
     
