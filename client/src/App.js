@@ -23,7 +23,9 @@ import Profile from './pages/user/profile';
 import Check_Pending_Deliveries from './pages/Employee/Check_Pending_Deliveries';
 import Check_Conversations from './pages/Employee/Check_Conversations';
 import Products from './pages/Employee/Products';
+import Sales from './pages/Employee/Sales';
 import UpdateProduct from './pages/Employee/UpdateProduct';
+import ForgotPasssword from './pages/Auth/ForgotPassword';
 
 function App() {
   return (
@@ -34,7 +36,7 @@ function App() {
     <Route  path='/' element={<HomePage/>}/>
     
     
-    
+    <Route path="/forgot-password" element={<ForgotPasssword />} />
     
     
     <Route  path='/dashboard' element={<PrivateRoute/>}>
@@ -52,6 +54,7 @@ function App() {
     <Route  path='employee_admin/product' element={<Products/>}/>
     <Route  path='employee_admin/update-product/:slug' element={<UpdateProduct/>}/>
     <Route  path='employee_admin/users' element={<Users/>}/>
+    <Route  path='employee_admin/sales' element={<Sales/>}/>
     </Route>
 
 

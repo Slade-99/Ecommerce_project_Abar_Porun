@@ -55,7 +55,7 @@ export const registerController = async (req,res ) => {
     try{
 
 
-        const {Name,Password,Email,Address,Phone,Gender} = req.body
+        const {Name,Password,Email,Address,Phone,Gender,Question} = req.body
         //validation
 
 
@@ -105,11 +105,11 @@ export const registerController = async (req,res ) => {
         // Generate new customerID
         var totalCount = await customerModel.countDocuments();
         totalCount = totalCount +1
-        var Customer_ID = "C_0"+totalCount
+        var Customer_ID = "C_"+totalCount
 
-        const hashedPassword = await hashPassword(Password)
+        
         //save
-        const Customer = await new customerModel({Customer_ID,Name,Password,Email,Address,Phone,Gender}).save()
+        const Customer = await new customerModel({Customer_ID,Name,Password,Email,Address,Phone,Gender,Question}).save()
         res.status(201).send({
             success:true,
             message:"User Registered Successfully"
@@ -243,6 +243,42 @@ export const registerController2 = async (req,res ) => {
 
 
 
+export const forgotPasswordController = async (req, res) => {
+    try {
+      const { Email, Question, newPassword } = req.body;
+      if (!Email) {
+        res.status(400).send({ message: "Email is required" });
+      }
+      if (!Question) {
+        res.status(400).send({ message: "answer is required" });
+      }
+      if (!newPassword) {
+        res.status(400).send({ message: "New Password is required" });
+      }
+      //check
+      const customer = await customerModel.findOne({ Email, Question });
+      //validation
+      if (!customer) {
+        return res.status(404).send({
+          success: false,
+          message: "Wrong Email Or Answer",
+        });
+      }
+      
+      await customerModel.findByIdAndUpdate(customer._id, { Password: newPassword });
+      res.status(200).send({
+        success: true,
+        message: "Password Reset Successfully",
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Something went wrong",
+        error,
+      });
+    }
+  };
 
 
 

@@ -135,7 +135,17 @@ const handleSubmit = async (e) => {
   </div>
 
   
-
+  <div className="mb-3">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => {
+                navigate("/forgot-password");
+              }}
+            >
+              Forgot Password
+            </button>
+          </div>
 
 
 

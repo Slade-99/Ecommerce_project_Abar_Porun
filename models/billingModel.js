@@ -2,39 +2,39 @@ import mongoose from 'mongoose'
 
 
 
-const customerSchema = new mongoose.Schema({
-    Customer_ID: {
+const billingSchema = new mongoose.Schema({
+    Bill_ID: {
         type: String,
         required: true,
         unique: true
       },
-      Name: {
+      Description: {
         type: String,
         required: true
       },
-      Password: {
+      Date: {
         type: String,
         required: true
       },
 
-      Email: {
+      Time: {
         type: String,
         required: true
       },
-      Address: {
+      Amount: {
+        type: Number,
+        required: true
+      },
+      Service_serial_number: {
         type: String,
         required: true
       },
-      Phone: {
+      Admin_ID: {
         type: String,
         required: true
       },
-      Gender: {
-        type: String,
-        required: true
-      },
-      Question: {
-        type: String,
+      Price: {
+        type: Number,
         required: true
       }
 
@@ -47,4 +47,4 @@ const customerSchema = new mongoose.Schema({
 
 
 
-export default mongoose.model('customerModel',customerSchema)
+export default mongoose.model('billing',billingSchema)
