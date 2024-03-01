@@ -134,7 +134,7 @@
 .wrapper {
   position: absolute; /* Change position to absolute */
   bottom: 55px;; /* Align to the bottom */
-  width: 800px;
+  width: 740px;
   height: 800px; /* Initial height */
   background: transparent;
   border: 2px solid rgba(255, 255, 255, .5);
@@ -164,6 +164,9 @@
   
 }
 
+.wrapper .form-label{
+  color: black;
+}
 .wrapper.active-popup {
   transform: scale(1);
 }
@@ -196,6 +199,7 @@
 }
 
 .form-control {
+  width:300px;
   background-color: rgba(255, 255, 255, 0.4); /* Example: 50% transparent white */
   border-color: rgba(0, 0, 0, 0.1); /* Example: 10% transparent black border */
   color: #000; /* Adjust text color as needed */
@@ -779,4 +783,22 @@ background-color: #e59393;
 
 
 
-/*    Homepage  */
+/*   Forgot Password Page  */
+.wrapper3 {
+  
+  position: top; /* Change position to absolute */
+  bottom: 250px; /* Align to the bottom */
+  width: 500px;
+  height: 500px; /* Initial height */
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transform: translate(130%,30%);
+  
+}

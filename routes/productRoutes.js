@@ -12,6 +12,7 @@ import {
 } from "../controllers/productController.js";
 import {  requireSignIn,isAdmin } from "../middlewares/authMiddleware.js";
 import formidable from "express-formidable";
+import { billingController, billingControllerAll } from "../controllers/billingController.js";
 
 const router = express.Router();
 
@@ -43,5 +44,13 @@ router.get("/product-count", productCountController);
 
 //product per page
 router.get("/product-list/:page", productListController);
+
+
+//create product billing
+router.post("/billing", billingController);
+
+
+//All product billing
+router.get("/billing-all", billingControllerAll);
 
 export default router;
