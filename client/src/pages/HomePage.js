@@ -12,7 +12,7 @@ const HomePage = () => {
     <Layout title={"Abaar Porun"}>
       
     
-
+    <h1>Welcome to our Store!!</h1>
 
 
       

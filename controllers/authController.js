@@ -291,7 +291,8 @@ export const loginController = async (req,res) => {
             message:"login successful",
             customer:{
                 name:customer.Name,
-                email:customer.Email
+                email:customer.Email,
+                ID:customer.Customer_ID,
 
                 
             },
@@ -351,18 +352,21 @@ export const loginController2 = async (req,res) => {
 
 
         // token
-        const token = await JWT.sign({_id:employee.Employee_ID} , process.env.JWT_SECRET,{
+        const token =  JWT.sign({ _id: employee._id }, process.env.JWT_SECRET, {
+            expiresIn: "7d",
+          });
 
-
-            expiresIn:"7d",
-        });
+            
+        
         res.status(200).send({
             success:true,
             message:"login successful",
             employee:{
+                _id: employee._id,
                 name:employee.Name,
-                email:employee.Type
-
+                phone:employee.Phone,
+                ID:employee.Employee_ID,
+                
                 
             },
             token,
