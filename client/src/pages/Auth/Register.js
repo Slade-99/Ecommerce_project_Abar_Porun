@@ -12,6 +12,7 @@ const Register = () => {
     const [Address,setAddress] = useState("");
     const [Phone,setPhone] = useState("");
     const [Gender,setGender] = useState("");
+    const [Question,setQuestion] = useState("");
     const navigate = useNavigate();
 
 // form function
@@ -21,10 +22,12 @@ const handleSubmit = async (e) => {
 
         const res = await axios.post('/api/v1/auth/register/customer',
         
-        {Name,Password,Email,Address,Phone,Gender});
+        {Name,Password,Email,Address,Phone,Gender,Question});
         if(res.data.success){
             toast.success("User Registered Successfully")
-            navigate('/login');
+            setTimeout(() => {
+              navigate('/login');
+          }, 2000);
         }else{
             toast.error(res.data.message)
         }
@@ -77,6 +80,12 @@ const handleSubmit = async (e) => {
   <div className="mb-3">
     <label htmlFor="exampleInputgender" className="form-label">Gender</label>
     <input value = {Gender}type="text" required  onChange={(e) =>setGender(e.target.value)}  className="form-control" id="exampleInputgender" />
+  </div>
+
+
+  <div className="mb-3">
+    <label htmlFor="exampleInputquestion" className="form-label">What is your age?</label>
+    <input value = {Question}type="text" required  onChange={(e) =>setQuestion(e.target.value)}  className="form-control" id="exampleInputquestion" />
   </div>
 
 

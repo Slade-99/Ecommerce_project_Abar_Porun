@@ -3,7 +3,8 @@ import { registerController,
     registerController2,
     loginController,
     loginController2,
-    testController, 
+    testController,
+    forgotPasswordController, 
 
 
 } from '../controllers/authController.js'
@@ -22,6 +23,9 @@ router.post('/register/employee', registerController2)
 router.post('/login/customer', loginController)
 router.post('/login/employee', loginController2)
 export default router
+
+//Forgot Password || POST
+router.post("/forgot-password", forgotPasswordController);
 
 
 // Test Route
