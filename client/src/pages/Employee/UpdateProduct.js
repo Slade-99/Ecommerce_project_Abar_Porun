@@ -4,25 +4,54 @@ import AdminMenu from "./../../components/Layout/AdminMenu";
 import {toast} from "react-toastify";
 import axios from "axios";
 import { Select } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from '../../context/auth';
 const { Option } = Select;
 
-const CreateProduct = () => {
-  const [auth] = useAuth();
+const UpdateProduct = () => {
+    const [auth] = useAuth();
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
-  
+  const params = useParams();
   const [description, setDescription] = useState("");
+  const [_id, setId] = useState("");
   const [fabric_type, setFabric_type] = useState("");
   const [size, setSize] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
   const [review, setReview] = useState("");
+  const [code, setCode] = useState("");
   const admin_id = auth?.employee?._id;
   const [photo, setPhoto] = useState("");
 
+  //get single product
+  const getSingleProduct = async () => {
+    try {
+      const { data } = await axios.get(
+        `/api/v1/product/get-product/${params.slug}`
+      );
+      
+      setId(data.product._id);
+      setCode(data.product.code);
+      setSize(data.product.size);
+      setReview(data.product.review);
+      
+      setFabric_type(data.product.fabric_type);
+      setDescription(data.product.description);
+      setPrice(data.product.price);
+      
+      setQuantity(data.product.quantity);
+      
+      setCategory(data.product.category._id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getSingleProduct();
+    //eslint-disable-next-line
+  }, []);
   //get all category
   const getAllCategory = async () => {
     try {
@@ -32,7 +61,7 @@ const CreateProduct = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong in getting catgeory");
+      toast.error("Something wwent wrong in getting catgeory");
     }
   };
 
@@ -41,7 +70,7 @@ const CreateProduct = () => {
   }, []);
 
   //create product function
-  const handleCreate = async (e) => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       const productData = new FormData();
@@ -49,22 +78,17 @@ const CreateProduct = () => {
       productData.append("description", description);
       productData.append("price", price);
       productData.append("quantity", quantity);
-      productData.append("photo", photo);
+      photo && productData.append("photo", photo);
       productData.append("category", category);
-      productData.append("fabric_type", fabric_type);
-      productData.append("size", size);
-      productData.append("review", review);
-      productData.append("admin_id", admin_id);
-      
-      const { data } = axios.post(
-        "/api/v1/product/create-product",
+      const { data } = axios.put(
+        `/api/v1/product/update-product/${_id}`,
         productData
       );
       if (data?.success) {
         toast.error(data?.message);
       } else {
-        toast.success("Product Created Successfully");
-        navigate("/dashboard/employee_admin/create_product");
+        toast.success("Product Updated Successfully");
+        navigate("/dashboard/employee_admin/product");
       }
     } catch (error) {
       console.log(error);
@@ -72,6 +96,21 @@ const CreateProduct = () => {
     }
   };
 
+  //delete a product
+  const handleDelete = async () => {
+    try {
+      let answer = window.prompt("Are You Sure want to delete this product ? ");
+      if (!answer) return;
+      const { data } = await axios.delete(
+        `/api/v1/product/delete-product/${_id}`
+      );
+      toast.success("Product Deleted Succfully");
+      navigate("/dashboard/employee_admin/product");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
   return (
     <Layout title={"Dashboard - Create Product"}>
       <div className="container-fluid m-3 p-3">
@@ -82,19 +121,16 @@ const CreateProduct = () => {
           <div className="col-md-9">
             
             <div className="m-1 w-75">
-            <h1>Create Product</h1>
-              
-              
-              
-            <Select
+              <Select
                 bordered={false}
                 placeholder="Select a category"
                 size="large"
                 showSearch
-                className="form-select-mb-3"
+                className="form-select mb-3"
                 onChange={(value) => {
                   setCategory(value);
                 }}
+                value={category}
               >
                 {categories?.map((c) => (
                   <Option key={c._id} value={c._id}>
@@ -102,8 +138,6 @@ const CreateProduct = () => {
                   </Option>
                 ))}
               </Select>
-
-
               <div className="mb-3">
                 <label className="btn btn-outline-secondary col-md-12">
                   {photo ? photo.name : "Upload Photo"}
@@ -116,11 +150,8 @@ const CreateProduct = () => {
                   />
                 </label>
               </div>
-
-
-
               <div className="mb-3">
-                {photo && (
+                {photo ? (
                   <div className="text-center">
                     <img
                       src={URL.createObjectURL(photo)}
@@ -129,15 +160,18 @@ const CreateProduct = () => {
                       className="img img-responsive"
                     />
                   </div>
+                ) : (
+                  <div className="text-center">
+                    <img
+                      src={`/api/v1/product/product-photo/${_id}`}
+                      alt="product_photo"
+                      height={"200px"}
+                      className="img img-responsive"
+                    />
+                  </div>
                 )}
               </div>
-
-
-
-
-
-
-
+              
               <div className="mb-3">
                 <textarea
                   type="text"
@@ -150,30 +184,6 @@ const CreateProduct = () => {
 
               <div className="mb-3">
                 <input
-                  type="text"
-                  value={fabric_type}
-                  placeholder="State the fabric type"
-                  className="form-control"
-                  onChange={(e) => setFabric_type(e.target.value)}
-                />
-              </div>
-
-
-              <div className="mb-3">
-                <input
-                  type="number"
-                  value={size}
-                  placeholder="Enter the size"
-                  className="form-control"
-                  onChange={(e) => setSize(e.target.value)}
-                />
-              </div>
-
-
-
-
-              <div className="mb-3">
-                <input
                   type="number"
                   value={price}
                   placeholder="write a Price"
@@ -181,13 +191,6 @@ const CreateProduct = () => {
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
-
-
-   
-
-
-
-
               <div className="mb-3">
                 <input
                   type="number"
@@ -197,54 +200,18 @@ const CreateProduct = () => {
                   onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
-
-              
-     
-
-
-
+             
               <div className="mb-3">
-                <input
-                  type="text"
-                  value={review}
-                  placeholder="Review of the product"
-                  className="form-control"
-                  onChange={(e) => setReview(e.target.value)}
-                />
-              </div>
-
-{/*
-              <div className="mb-3">
-                <Select
-                  bordered={false}
-                  placeholder="Select Shipping "
-                  size="large"
-                  showSearch
-                  className="form-select mb-3"
-                  onChange={(value) => {
-                    setShipping(value);
-                  }}
-                >
-                  <Option value="0">No</Option>
-                  <Option value="1">Yes</Option>
-                </Select>
-                
-
-
-              </div>
-*/}
-
-
-              <div className="mb-3">
-                <button className="btn btn-primary" onClick={handleCreate}>
-                  CREATE PRODUCT
+                <button className="btn btn-primary" onClick={handleUpdate}>
+                  UPDATE PRODUCT
                 </button>
               </div>
-
-
-
+              <div className="mb-3">
+                <button className="btn btn-danger" onClick={handleDelete}>
+                  DELETE PRODUCT
+                </button>
+              </div>
             </div>
-
           </div>
         </div>
       </div>
@@ -252,4 +219,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default UpdateProduct;

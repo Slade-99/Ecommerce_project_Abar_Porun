@@ -22,6 +22,8 @@ import Orders from './pages/user/orders';
 import Profile from './pages/user/profile';
 import Check_Pending_Deliveries from './pages/Employee/Check_Pending_Deliveries';
 import Check_Conversations from './pages/Employee/Check_Conversations';
+import Products from './pages/Employee/Products';
+import UpdateProduct from './pages/Employee/UpdateProduct';
 
 function App() {
   return (
@@ -47,6 +49,8 @@ function App() {
     <Route  path='employee_admin' element={<AdminDashboard/>}/>
     <Route  path='employee_admin/create_category' element={<CreateCategory/>}/>
     <Route  path='employee_admin/create_product' element={<CreateProduct/>}/>
+    <Route  path='employee_admin/product' element={<Products/>}/>
+    <Route  path='employee_admin/update-product/:slug' element={<UpdateProduct/>}/>
     <Route  path='employee_admin/users' element={<Users/>}/>
     </Route>
 
