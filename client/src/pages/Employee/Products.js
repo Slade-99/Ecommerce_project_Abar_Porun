@@ -157,6 +157,8 @@ const Products = () => {
                  <div className="card-body">
                     <h5 className="card-title">{p.description}</h5>
                     <p className="card-text">{p.fabric_type}</p>
+                    <button class ="btn btn-primary ms-1"> Add to cart</button>
+                    <button class ="btn btn-primary ms-1"> Details</button>
                   </div>
                 
                 

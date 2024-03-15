@@ -764,6 +764,100 @@ background-color: #e59393;
 
 
 
+/* Home Page  */
+.container-fluid .col-md-5  {
+  top: -300px;
+  left: -13px;
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: height .2s ease;
+}
+
+
+.container-fluid .col-md-8-2 {
+  position: relative;
+  width: 1450px;
+  height: 750px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  justify-content: center;
+  align-items: flex-end; /* Start alignment to have the cards stack from the top */
+  overflow-y: auto; /* Add vertical scrollbar when needed */
+  max-width: 100%;
+  transform: translate(230px, 100px);
+  max-width: 1000;
+}
+
+
+
+/* Styles for the card container */
+.card-m-2 {
+  margin: 80px; /* Adjust as needed */
+  width: 18rem;
+  height: 500px;
+  background: transparent;
+  border: 0px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  
+  
+  
+  overflow: hidden;
+  flex-direction: column; /* Stack items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+/* Styles for the card image */
+.card-img-top {
+  width: 100%;
+  height: 80%;
+}
+
+/* Styles for the card title */
+.card-title {
+  font-family: "Poppins", sans-serif;
+  
+  font-size: 1.5rem; /* Adjust as needed */
+  font-weight: bold;
+  color: black;
+  text-decoration: underline black;
+}
+
+/* Styles for the card text */
+.card-text {
+  font-family: "Poppins", sans-serif;
+  color: black;
+  font-size: 1rem; /* Adjust as needed */
+  text-decoration: underline black;
+}
+
+.h1 {
+  font-size: 45px; /* Adjust font size as needed */
+  font-weight: bold;
+  color: #000000; /* Adjust text color as needed */
+  text-align: right; /* Center the text */
+  margin-top: 20px; /* Add some top margin for spacing */
+  margin-bottom: 20px; /* Add some bottom margin for spacing */
+  position: absolute;
+  transform: translate(550px,25px);
+
+}
 
 
 
