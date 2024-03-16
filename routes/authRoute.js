@@ -4,7 +4,8 @@ import { registerController,
     loginController,
     loginController2,
     testController,
-    forgotPasswordController, 
+    forgotPasswordController,
+    forgotPasswordController2, 
 
 
 } from '../controllers/authController.js'
@@ -26,6 +27,7 @@ export default router
 
 //Forgot Password || POST
 router.post("/forgot-password", forgotPasswordController);
+router.post("/forgot-password2", forgotPasswordController2);
 
 
 // Test Route

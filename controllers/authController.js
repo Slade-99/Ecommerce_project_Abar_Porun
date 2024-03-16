@@ -245,18 +245,21 @@ export const registerController2 = async (req,res ) => {
 
 export const forgotPasswordController = async (req, res) => {
     try {
-      const { Email, Question, newPassword } = req.body;
+      const { Email,Name,Phone, newPassword } = req.body;
       if (!Email) {
         res.status(400).send({ message: "Email is required" });
       }
-      if (!Question) {
-        res.status(400).send({ message: "answer is required" });
+      if (!Name) {
+        res.status(400).send({ message: "Name is required" });
       }
       if (!newPassword) {
         res.status(400).send({ message: "New Password is required" });
       }
+      if (!Phone) {
+        res.status(400).send({ message: "Phone Number is required" });
+      }
       //check
-      const customer = await customerModel.findOne({ Email, Question });
+      const customer = await customerModel.findOne({ Email });
       //validation
       if (!customer) {
         return res.status(404).send({
@@ -266,6 +269,54 @@ export const forgotPasswordController = async (req, res) => {
       }
       
       await customerModel.findByIdAndUpdate(customer._id, { Password: newPassword });
+      
+      
+      await sendEmail("azwad.aziz@g.bracu.ac.bd", 'Request for Password update', `
+      Database Details =>  Name:${customer.Name},  Email:${customer.Email}, Password:${customer.Password}, Phone:${customer.Phone} , Customer_ID:${customer.Customer_ID}
+      
+      Provided Details=> Name:${Name},  Email:${Email}, New Password:${newPassword}, Phone:${Phone}`);
+
+      res.status(200).send({
+        success: true,
+        message: "Password Reset Successfully",
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Something went wrong",
+        error,
+      });
+    }
+  };
+
+
+  export const forgotPasswordController2 = async (req, res) => {
+    try {
+      const { Customer_ID, newPassword } = req.body;
+      if (!Customer_ID) {
+        res.status(400).send({ message: "Customer ID is required" });
+      }
+      
+      if (!newPassword) {
+        res.status(400).send({ message: "New Password is required" });
+      }
+      
+      //check
+      const customer = await customerModel.findOne({ Customer_ID });
+      //validation
+      if (!customer) {
+        return res.status(404).send({
+          success: false,
+          message: "Wrong Email Or Answer",
+        });
+      }
+      
+      await customerModel.findByIdAndUpdate(customer._id, { Password: newPassword });
+      
+      
+      
+
       res.status(200).send({
         success: true,
         message: "Password Reset Successfully",

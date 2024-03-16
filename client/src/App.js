@@ -28,6 +28,8 @@ import UpdateProduct from './pages/Employee/UpdateProduct';
 import ForgotPasssword from './pages/Auth/ForgotPassword';
 import Search from './pages/Search';
 import ProductDetails from './pages/ProductDetails';
+import PasswordUpdate from './pages/Employee/PasswordUpdate';
+import CartPage from './pages/CartPage';
 function App() {
   return (
     <>
@@ -36,6 +38,7 @@ function App() {
 
     <Route  path='/' element={<HomePage/>}/>
     <Route  path='/product/:slug' element={<ProductDetails/>}/>
+    <Route path="/cart" element={<CartPage/>}/>
     <Route path="/search" element={<Search/>}/>
     
     <Route path="/forgot-password" element={<ForgotPasssword />} />
@@ -57,6 +60,7 @@ function App() {
     <Route  path='employee_admin/update-product/:slug' element={<UpdateProduct/>}/>
     <Route  path='employee_admin/users' element={<Users/>}/>
     <Route  path='employee_admin/sales' element={<Sales/>}/>
+    <Route  path='employee_admin/password_update' element={<PasswordUpdate/>}/>
     </Route>
 
 
