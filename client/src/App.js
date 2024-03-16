@@ -26,7 +26,8 @@ import Products from './pages/Employee/Products';
 import Sales from './pages/Employee/Sales';
 import UpdateProduct from './pages/Employee/UpdateProduct';
 import ForgotPasssword from './pages/Auth/ForgotPassword';
-
+import Search from './pages/Search';
+import ProductDetails from './pages/ProductDetails';
 function App() {
   return (
     <>
@@ -34,7 +35,8 @@ function App() {
 
 
     <Route  path='/' element={<HomePage/>}/>
-    
+    <Route  path='/product/:slug' element={<ProductDetails/>}/>
+    <Route path="/search" element={<Search/>}/>
     
     <Route path="/forgot-password" element={<ForgotPasssword />} />
     
@@ -78,7 +80,7 @@ function App() {
     <Route  path='*' element={<Pagenotfound/>}/>
     
 
-
+    
 
    </Routes>
     
