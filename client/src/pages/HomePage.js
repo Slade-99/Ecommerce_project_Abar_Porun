@@ -7,12 +7,13 @@ import { Link } from "react-router-dom";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 import { useNavigate } from "react-router-dom";
-
+import { useCart } from "../context/cart";
 
 
 const HomePage = () => {
   
   const [products, setProducts] = useState([]);
+  const[cart,setCart]=useCart();
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -120,11 +121,7 @@ const HomePage = () => {
               
               
               
-              <Link
-                key={p._id}
-                to={`/product/${p.slug}`}
-                className="product-link"
-              >
+              
                 
                 
                 
@@ -143,7 +140,9 @@ const HomePage = () => {
                     <h5 className="card-title">{p.description}</h5>
                     <p className="card-text">{p.fabric_type}</p>
                     <button class="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
-                  <button class="btn btn-secondary ms-1">ADD TO CART</button>
+                  
+                  
+                    <button className="btn btn-secondary ms-1" onClick={()=>{setCart([...cart,p]); localStorage.setItem('cart',JSON.stringify([...cart,p])); toast.success("item added to cart");}}>ADD TO CART</button>
                   
                   </div>
                 
@@ -151,7 +150,7 @@ const HomePage = () => {
                 </div>
                 
              
-             </Link>
+             
             ))}
           </div>
         </div>

@@ -7,8 +7,11 @@ import {toast} from 'react-toastify'
 
 const ForgotPasssword = () => {
   const [Email, setEmail] = useState("");
+  
+  const [Name, setName] = useState("");
+  const [Phone, setPhone] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [Question, setQuestion] = useState("");
+  
 
   const navigate = useNavigate();
 
@@ -18,13 +21,17 @@ const ForgotPasssword = () => {
     try {
       const res = await axios.post("/api/v1/auth/forgot-password", {
         Email,
+        Name,
+        Phone,
         newPassword,
-        Question,
+        
       });
       if (res && res.data.success) {
-        toast.success(res.data && res.data.message);
-
-        navigate("/login");
+        
+        toast.success("Admin will review your provided information and update the password if the credentials are verified");
+        
+        
+        
       } else {
         toast.error(res.data.message);
       }
@@ -33,6 +40,8 @@ const ForgotPasssword = () => {
       toast.error("Something went wrong");
     }
   };
+
+
   return (
     <Layout title={"Forgot Password - Ecommerce APP"}>
       <div className="wrapper3">
@@ -50,14 +59,26 @@ const ForgotPasssword = () => {
               required
             />
           </div>
+         
           <div className="mb-3">
             <input
               type="text"
-              value={Question}
-              onChange={(e) => setQuestion(e.target.value)}
+              value={Name}
+              onChange={(e) => setName(e.target.value)}
               className="form-control"
               id="exampleInputEmail1"
-              placeholder="Enter Your Age "
+              placeholder="Enter Your Name "
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <input
+              type="text"
+              value={Phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="form-control"
+              id="exampleInputEmail1"
+              placeholder="Enter Your Phone Number"
               required
             />
           </div>
@@ -68,7 +89,7 @@ const ForgotPasssword = () => {
               onChange={(e) => setNewPassword(e.target.value)}
               className="form-control"
               id="exampleInputPassword1"
-              placeholder="Enter Your Password"
+              placeholder="Enter Your New Password"
               required
             />
           </div>
