@@ -6,13 +6,14 @@ import {toast} from "react-toastify";
 import { Link } from "react-router-dom";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
+import { useNavigate } from "react-router-dom";
 
 
 
 const HomePage = () => {
   
   const [products, setProducts] = useState([]);
-  
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
@@ -103,17 +104,17 @@ const HomePage = () => {
 
 
     <Layout>
-      <h1>Trending Products with Discounts</h1>
+      <h1>Welcome to Our Website</h1>
       <div className='container-fluid'>
       
-      <div className="row">
+      
         
 
         
 
         <div className="col-md-8-2 ">
-          
-          <div className="d-flex">
+        <h1>Trending Products with Discounts</h1>
+          <div className="grid-container">
             
             {products?.map((p) => (
               
@@ -121,7 +122,7 @@ const HomePage = () => {
               
               <Link
                 key={p._id}
-                to={`/dashboard/employee_admin/update-product/${p.slug}`}
+                to={`/product/${p.slug}`}
                 className="product-link"
               >
                 
@@ -141,7 +142,7 @@ const HomePage = () => {
                  <div className="card-body">
                     <h5 className="card-title">{p.description}</h5>
                     <p className="card-text">{p.fabric_type}</p>
-                    <button class="btn btn-primary ms-1">More Details</button>
+                    <button class="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
                   <button class="btn btn-secondary ms-1">ADD TO CART</button>
                   
                   </div>
@@ -154,7 +155,7 @@ const HomePage = () => {
             ))}
           </div>
         </div>
-      </div>
+      
         
         
         
@@ -168,6 +169,7 @@ const HomePage = () => {
       
       
       </div>
+      
     
     </Layout>
   );

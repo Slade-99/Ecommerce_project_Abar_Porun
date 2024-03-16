@@ -284,6 +284,7 @@ export const searchProductController = async (req,res) => {
     const {keyword} =req.params;
     const results = await productModel.find({
       $or:[
+        
         {description:{$regex : keyword, $options:"i"}},
       ],
     })

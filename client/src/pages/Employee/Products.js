@@ -175,7 +175,7 @@ const Products = () => {
         
         
         
-        <div className="col-md-5">
+        <div className="col-md-5-2">
         
           <div className="column">
             <h5>Filter by Category</h5>

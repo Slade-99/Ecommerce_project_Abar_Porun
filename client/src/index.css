@@ -620,7 +620,7 @@ background-color: #e59393;
 
 
 /* Products Page  */
-.container-fluid .col-md-5  {
+.container-fluid .col-md-5-2  {
   top: -300px;
   left: -13px;
   position: relative;
@@ -768,7 +768,7 @@ background-color: #e59393;
 .container-fluid .col-md-5  {
   top: -300px;
   left: -13px;
-  position: relative;
+  position: absolute;
   width: 400px;
   height: 400px;
   background: transparent;
@@ -785,9 +785,9 @@ background-color: #e59393;
 
 
 .container-fluid .col-md-8-2 {
-  position: relative;
-  width: 1450px;
-  height: 750px;
+  position: absolute;
+  width: 1200px;
+  height: 800px;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, .5);
   border-radius: 20px;
@@ -797,11 +797,16 @@ background-color: #e59393;
   justify-content: center;
   align-items: flex-end; /* Start alignment to have the cards stack from the top */
   overflow-y: auto; /* Add vertical scrollbar when needed */
-  max-width: 100%;
-  transform: translate(230px, 100px);
+  max-width: 80%;
+  transform: translate(691px, -55px);
   max-width: 1000;
 }
 
+.col-md-8-2  .grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 15px;
+}
 
 
 /* Styles for the card container */
@@ -895,4 +900,44 @@ background-color: #e59393;
   overflow: hidden;
   transform: translate(130%,30%);
   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*   Product Details Page  */
+.col-md-6{
+  top: 0px;
+  left: 0px;
+  position: relative;
+  width: 400px;
+  height: 500px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  overflow: hidden;
+  transition: height .2s ease;
+}
+
+.col-md-5 h1 {
+  font-size: 25px; /* Adjust font size for h1 */
+}
+
+.col-md-5 h6 {
+  font-size: 25px; /* Adjust font size for h6 */
 }
