@@ -6,10 +6,13 @@ import {toast} from "react-toastify";
 import { Link } from "react-router-dom";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../../components/Prices";
+import { useCart } from "../../context/cart";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
+  const[cart,setCart]= useCart();
   const [products, setProducts] = useState([]);
-  
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
@@ -129,17 +132,13 @@ const Products = () => {
 
         <div className="col-md-9-2 ">
           
-          <div className="d-flex">
+        <div className="grid-container">
             
             {products?.map((p) => (
               
               
               
-              <Link
-                key={p._id}
-                to={`/dashboard/employee_admin/update-product/${p.slug}`}
-                className="product-link"
-              >
+              
                 
                 
                 
@@ -157,15 +156,18 @@ const Products = () => {
                  <div className="card-body">
                     <h5 className="card-title">{p.description}</h5>
                     <p className="card-text">{p.fabric_type}</p>
-                    <button class ="btn btn-primary ms-1"> Add to cart</button>
-                    <button class ="btn btn-primary ms-1"> Details</button>
+                    <button class="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
+                  
+                  
+                    <button className="btn btn-secondary ms-1" onClick={()=>{setCart([...cart,p]); localStorage.setItem('cart',JSON.stringify([...cart,p])); toast.success("item added to cart");}}>ADD TO CART</button>
+                  
                   </div>
                 
                 
                 </div>
                 
              
-             </Link>
+             
             ))}
           </div>
         </div>
