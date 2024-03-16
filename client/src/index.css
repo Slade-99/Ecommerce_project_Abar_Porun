@@ -297,8 +297,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  
   transition: height .2s ease;
+  overflow-y: auto;
 }
 
 
@@ -317,14 +318,15 @@
     border: 2px solid #393938;
     border-radius: 5px;
     color: #000000;
-    margin-bottom: 15px;
+    margin-top: 15px;
     background-color: #fff5;
     backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem #0005;
     border-radius: .8rem;
     width: 250px;
-    height: 65px;
+    height: 57px;
     transform: translate(0%,-10%);
+    
 }
 
 .list-group-item-list-group-item-action:hover {
@@ -903,7 +905,25 @@ background-color: #e59393;
 }
 
 
-
+/*   PasswordUpdate Page  */
+.wrapper32 {
+  
+  position: top; /* Change position to absolute */
+  bottom: 250px; /* Align to the bottom */
+  width: 500px;
+  height: 500px; /* Initial height */
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transform: translate(60%,10%);
+  
+}
 
 
 

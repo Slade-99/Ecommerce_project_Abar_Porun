@@ -187,6 +187,15 @@ const Products = () => {
                 {c.name}
               </Checkbox>
             ))}
+
+          <div className="flex">
+            <button
+              className="btn btn-danger"
+              onClick={() => window.location.reload()}
+            >
+              RESET FILTERS
+            </button>
+          </div>
           </div>
           
           
@@ -202,7 +211,7 @@ const Products = () => {
               ))}
             </Radio.Group>
           </div>
-        
+ 
         
         
         </div>

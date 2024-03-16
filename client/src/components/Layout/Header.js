@@ -31,13 +31,28 @@ const Header = () => {
             <Link to="/" className="navbar-brand">
                Abar Porun
             </Link>
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+           
+           
+           
+           
+           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <SearchInput/>
+
+
+
+
+
+
+
               <li className="nav-item">
                 <NavLink to="/" className="nav-link ">
                   Home
                 </NavLink>
               </li>
+
+
+
+
               <li className="nav-item">
                 <NavLink to="/category" className="nav-link ">
                   Category
@@ -46,6 +61,8 @@ const Header = () => {
               
 
             {
+
+
               !auth.user ? (<>
               <li className="nav-item">
                 <NavLink to="/register" className="nav-link">
@@ -67,6 +84,10 @@ const Header = () => {
               
               </> ) : ( <>
               
+
+        
+
+
                 <li className="nav-item">
                 <NavLink onClick={handleLogout} to="/" className="nav-link">
                   Logout
