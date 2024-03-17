@@ -3,7 +3,7 @@ import slugify from "slugify";
 
 export const billingController = async (req, res) => {
     try {
-      const { Bill_ID,Description,Date,Time,Amount,Service_serial_number,Admin_ID,Price } = req.body;
+      const { Bill_ID,Description,Date,Time,Amount,Customer_ID,Admin_ID,Price } = req.body;
 
       const existingbilling = await billingModel.findOne({ Bill_ID });
       if (existingbilling) {
@@ -19,7 +19,7 @@ export const billingController = async (req, res) => {
         Date,
         Time,
         Amount,
-        Service_serial_number,
+        Customer_ID,
         Admin_ID,
         Price,
         
