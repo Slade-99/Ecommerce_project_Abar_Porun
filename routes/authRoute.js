@@ -5,7 +5,9 @@ import { registerController,
     loginController2,
     testController,
     forgotPasswordController,
-    forgotPasswordController2, 
+    forgotPasswordController2,
+    getSingleCustomer,
+    updateCustomer, 
 
 
 } from '../controllers/authController.js'
@@ -45,3 +47,11 @@ router.get('/user-auth',requireSignIn, (req,res) =>{
 router.get('/employee-auth',requireSignIn, isAdmin, (req,res) =>{
     res.status(200).send({ok:true})
 })
+
+
+
+//singleCustomer
+router.get("/get-customer/:ID", getSingleCustomer);
+
+//UpdateCustomer
+router.put("/update-customer/:ID", updateCustomer);

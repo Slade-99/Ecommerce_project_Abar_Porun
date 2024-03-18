@@ -1,28 +1,65 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {toast} from 'react-toastify'
 import axios from "axios";
 import UserMenu from "../../components/Layout/UserMenu";
 import Layout from "./../../components/Layout/Layout";
+import { useAuth } from '../../context/auth';
+import { Select } from "antd";
+const { Option } = Select;
+
 
 const Profile = () => {
 
-  const [Customer_ID, setCustomer_ID] = useState("");
-  
-  
-  const [newPassword, setNewPassword] = useState("");
-  
-
+  const [auth] = useAuth();
   const navigate = useNavigate();
+  
+  const params = useParams();
+  const [Name, setName] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Address, setAddress] = useState("");
+  const [Phone, setPhone] = useState("");
+  const [Gender, setGender] = useState("");
+  const [Question, setAge] = useState("");
+  const Customer_ID = auth?.customer?.ID;
+  
+  const getSingleCustomer = async () => {
+    try {
+      const { data } = await axios.get(
+        `/api/v1/auth/get-customer/${Customer_ID}`
+      );
+      
+      setName(data.customer.Name);
+      setPassword(data.customer.Password);
+      setEmail(data.customer.Email);
+      setAddress(data.customer.Address);
+      setPhone(data.customer.Phone);
+      setGender(data.customer.Gender);
+      setAge(data.customer.Question);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getSingleCustomer();
+    //eslint-disable-next-line
+  }, []);
+
+
+
+
+
+
+
 
   // form function
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/v1/auth/forgot-password2", {
-          Customer_ID,
-        
-        newPassword,
+      const res = await axios.put(`/api/v1/auth/update-customer/${Customer_ID}`, {
+        Customer_ID, Name,Password,Email,Address,Phone,Gender,Question
         
       });
       if (res && res.data.success) {
@@ -49,41 +86,84 @@ const Profile = () => {
 
   return (
     <Layout title={"Your Profile"}>
-    <h1>Update Customer Password</h1>
+    <h1>Update Deatils</h1>
     <div className='container-fluid'>
     <div className='row'>
     <div className='col-md-3'>
         <UserMenu/>
         </div>
-    <div className="wrapper32" >
+    <div className="wrapper33" >
         <form onSubmit={handleSubmit}>
           <h4 className="title">Update Profile</h4>
 
           <div className="mb-3">
-            <input
-              type="text"
-              value={Customer_ID}
-              onChange={(e) => setCustomer_ID(e.target.value)}
-              className="form-control"
-              id="exampleInputEmail1"
-              placeholder="Enter Customer ID "
-              required
-            />
-          </div>
+                <textarea
+                  type="text"
+                  value={Name}
+                  placeholder="write a description"
+                  className="form-control"
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+
+              <div className="mb-3">
+                <textarea
+                  type="text"
+                  value={Password}
+                  placeholder="write a description"
+                  className="form-control"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <textarea
+                  type="text"
+                  value={Email}
+                  placeholder="write a description"
+                  className="form-control"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <textarea
+                  type="text"
+                  value={Address}
+                  placeholder="write a description"
+                  className="form-control"
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <textarea
+                  type="text"
+                  value={Phone}
+                  placeholder="write a description"
+                  className="form-control"
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <textarea
+                  type="text"
+                  value={Gender}
+                  placeholder="write a description"
+                  className="form-control"
+                  onChange={(e) => setGender(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <textarea
+                  type="text"
+                  value={Question}
+                  placeholder="write a description"
+                  className="form-control"
+                  onChange={(e) => setAge(e.target.value)}
+                />
+              </div>
          
 
 
-          <div className="mb-3">
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="form-control"
-              id="exampleInputPassword1"
-              placeholder="Enter New Password"
-              required
-            />
-          </div>
+
 
           <button type="submit" className="btn btn-primary">
             Update

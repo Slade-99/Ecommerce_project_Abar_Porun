@@ -28,7 +28,7 @@ const Dashboard = () => {
            
            <h3> Customer Name: {auth?.customer?.name}</h3>
            <h3> Customer Email: {auth?.customer?.email}</h3>
-           <h3> Customer ID: {auth?.customer?.ID}</h3>
+           
            
            
          </div>

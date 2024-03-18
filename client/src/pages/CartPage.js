@@ -5,6 +5,7 @@ import { useCart } from '../context/cart';
 import { useAuth } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
 import AdminMenu from '../components/Layout/AdminMenu';
+import UserMenu from '../components/Layout/UserMenu';
 const CartPage=()=>{
     const [auth,setAuth]=useAuth();
     
@@ -41,7 +42,7 @@ const CartPage=()=>{
     return (
         <Layout>
                               <h1 className="text-center bg-light p-2 mb-1">
-                        {`Hello ${auth?.token && auth?.employee?.name}`}
+                        {`Hello ${auth?.token && auth?.customer?.name}`}
                     </h1>
                     <h4 className="text-center">
                         {cart?.length >= 1? `You have ${cart.length} item in your cart ${auth?.token? "":"please login to checkout"}`:"your cart is empty"}
@@ -49,7 +50,7 @@ const CartPage=()=>{
              <div className="container-fluid">
             <div className="row">
             <div className="col-md-3">
-          <AdminMenu />
+          <UserMenu />
         </div>
                 
   
@@ -98,6 +99,53 @@ const CartPage=()=>{
                     <h1>Cart Summary</h1>
                     <p> Total | Checkout | Payment</p>
                     <h4>Total:{totalPrice()} </h4>
+                
+                    {auth?.customer?.address ? (
+              <>
+                <div className="mb-3">
+                  <h4>Current Address</h4>
+                  <h5>{auth?.customer?.address}</h5>
+                  <button
+                    className="btn btn-outline-warning"
+                    onClick={() => navigate("/dashboard/customer/profile")}
+                  >
+                    Update Address
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="mb-3">
+                {auth?.token ? (
+                  <button
+                    className="btn btn-outline-warning"
+                    onClick={() => navigate("/dashboard/customer/profile")}
+                  >
+                    Update Address
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-outline-warning"
+                    onClick={() =>
+                      navigate("/login", {
+                        state: "/cart",
+                      })
+                    }
+                  >
+                    Plase Login to checkout
+                  </button>
+                )}
+              </div>
+            )}
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 </div>
             </div></Layout>
     );
