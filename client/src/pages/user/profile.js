@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-=======
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
->>>>>>> 2187e5e4262474e2af885ba685e220123cce33cd
 import {toast} from 'react-toastify'
 import axios from "axios";
 import UserMenu from "../../components/Layout/UserMenu";
@@ -16,7 +11,6 @@ const { Option } = Select;
 
 const Profile = () => {
 
-<<<<<<< HEAD
   const [auth] = useAuth();
   const navigate = useNavigate();
   
@@ -59,29 +53,13 @@ const Profile = () => {
 
 
 
-=======
-  const [Customer_ID, setCustomer_ID] = useState("");
-  
-  
-  const [newPassword, setNewPassword] = useState("");
-  
-
-  const navigate = useNavigate();
->>>>>>> 2187e5e4262474e2af885ba685e220123cce33cd
 
   // form function
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-<<<<<<< HEAD
       const res = await axios.put(`/api/v1/auth/update-customer/${Customer_ID}`, {
         Customer_ID, Name,Password,Email,Address,Phone,Gender,Question
-=======
-      const res = await axios.post("/api/v1/auth/forgot-password2", {
-          Customer_ID,
-        
-        newPassword,
->>>>>>> 2187e5e4262474e2af885ba685e220123cce33cd
         
       });
       if (res && res.data.success) {
@@ -108,26 +86,17 @@ const Profile = () => {
 
   return (
     <Layout title={"Your Profile"}>
-<<<<<<< HEAD
     <h1>Update Deatils</h1>
-=======
-    <h1>Update Customer Password</h1>
->>>>>>> 2187e5e4262474e2af885ba685e220123cce33cd
     <div className='container-fluid'>
     <div className='row'>
     <div className='col-md-3'>
         <UserMenu/>
         </div>
-<<<<<<< HEAD
     <div className="wrapper33" >
-=======
-    <div className="wrapper32" >
->>>>>>> 2187e5e4262474e2af885ba685e220123cce33cd
         <form onSubmit={handleSubmit}>
           <h4 className="title">Update Profile</h4>
 
           <div className="mb-3">
-<<<<<<< HEAD
                 <textarea
                   type="text"
                   value={Name}
@@ -195,32 +164,6 @@ const Profile = () => {
 
 
 
-=======
-            <input
-              type="text"
-              value={Customer_ID}
-              onChange={(e) => setCustomer_ID(e.target.value)}
-              className="form-control"
-              id="exampleInputEmail1"
-              placeholder="Enter Customer ID "
-              required
-            />
-          </div>
-         
-
-
-          <div className="mb-3">
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="form-control"
-              id="exampleInputPassword1"
-              placeholder="Enter New Password"
-              required
-            />
-          </div>
->>>>>>> 2187e5e4262474e2af885ba685e220123cce33cd
 
           <button type="submit" className="btn btn-primary">
             Update

@@ -138,11 +138,7 @@ const UpdateProduct = () => {
                   </Option>
                 ))}
               </Select>
-<<<<<<< HEAD
               <div className="mb-3">
-=======
-              
->>>>>>> 2187e5e4262474e2af885ba685e220123cce33cd
                 <label className="btn btn-outline-secondary">
                   {photo ? photo.name : "Upload Photo"}
                   <input
@@ -153,7 +149,7 @@ const UpdateProduct = () => {
                     hidden
                   />
                 </label>
-              
+              </div>
               <div className="mb-3">
                 {photo ? (
                   <div className="text-center">
