@@ -377,9 +377,11 @@ export const loginController = async (req,res) => {
             success:true,
             message:"login successful",
             customer:{
+                
                 name:customer.Name,
                 email:customer.Email,
-                ID:customer.Customer_ID,
+                ID:customer._id,
+                address:customer.Address,
 
                 
             },
@@ -488,5 +490,80 @@ export const testController = (req,res)=>{
       } catch (error) {
         console.log(error);
         res.send({ error });
+      }
+    };
+
+
+
+
+    export const getSingleCustomer = async (req, res) => {
+      try {
+        const Customer_ID = req.params.ID;
+        const customer = await customerModel.findOne({ _id:Customer_ID}) ;
+        res.status(200).send({success: true, message: "Customer Found",customer});
+      } catch (error) {
+        console.log(error);
+        res.status(500).send({
+          success: false,
+          message: "Eror while getitng single product",
+          error,
+        });
+      }
+    };
+
+
+
+    export const updateCustomer = async (req, res) => {
+      try {
+        const { Customer_ID, Name,Password,Email,Address,Phone,Gender,Question } = req.body;
+        if (!Customer_ID) {
+          res.status(400).send({ message: "Customer ID is required" });
+        }
+        
+        if (!Password) {
+          res.status(400).send({ message: "Password is required" });
+        }
+        if (!Email) {
+          res.status(400).send({ message: "Email is required" });
+        }
+        if (!Address) {
+          res.status(400).send({ message: "Address is required" });
+        }
+        if (!Phone) {
+          res.status(400).send({ message: "Phone Number is required" });
+        }
+        if (!Gender) {
+          res.status(400).send({ message: "Gender is required" });
+        }
+        if (!Question) {
+          res.status(400).send({ message: "Age is required" });
+        }
+        
+        //check
+        const customer = await customerModel.findOne({ _id:Customer_ID });
+        //validation
+        if (!customer) {
+          return res.status(404).send({
+            success: false,
+            message: "Wrong Email Or Answer",
+          });
+        }
+        
+        await customerModel.findByIdAndUpdate(customer._id, { Password: Password ,Name:Name , Email:Email,Address:Address,Phone:Phone,Gender:Gender,Question:Question });
+        
+        
+        
+  
+        res.status(200).send({
+          success: true,
+          message: "Updated Successfully Successfully",
+        });
+      } catch (error) {
+        console.log(error);
+        res.status(500).send({
+          success: false,
+          message: "Something went wrong",
+          error,
+        });
       }
     };

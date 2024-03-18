@@ -57,7 +57,7 @@ function App() {
     <Route  path='employee_admin/create_category' element={<CreateCategory/>}/>
     <Route  path='employee_admin/create_product' element={<CreateProduct/>}/>
     <Route  path='employee_admin/product' element={<Products/>}/>
-    <Route  path='employee_admin/update-product/:slug' element={<UpdateProduct/>}/>
+    <Route  path='employee_admin/product/update-product/:slug' element={<UpdateProduct/>}/>
     <Route  path='employee_admin/users' element={<Users/>}/>
     <Route  path='employee_admin/sales' element={<Sales/>}/>
     <Route  path='employee_admin/password_update' element={<PasswordUpdate/>}/>

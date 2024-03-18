@@ -25,8 +25,9 @@ const billingSchema = new mongoose.Schema({
         type: Number,
         required: true
       },
-      Service_serial_number: {
-        type: String,
+      Customer_ID: {
+        type: mongoose.ObjectId,
+        ref: "customerModel",
         required: true
       },
       Admin_ID: {
