@@ -1,5 +1,7 @@
 import customerModel from "../models/customerModel.js"
 import employeeModel from "../models/employeeModel.js";
+import orderModel from "../models/orderModel.js";
+import reviewModel from "../models/reviewModel.js";
 import {hashPassword,comparePassword} from './../helpers/authHelper.js';
 import JWT from "jsonwebtoken";
 import nodemailer from 'nodemailer';
@@ -567,3 +569,131 @@ export const testController = (req,res)=>{
         });
       }
     };
+
+
+
+    //orders
+export const getOrdersController = async (req, res) => {
+  try {
+    const Cus = req.params.Customer_ID
+    const orders = await orderModel
+      .find({ Cus })
+      .populate("Customer_ID", "Name")
+      .populate({
+        path: "products",
+        select: "description price", 
+      })
+      ;
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error WHile Geting Orders",
+      error,
+    });
+  }
+};
+//orders
+export const getAllOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({})
+      .populate("products", "-photo")
+      .populate("Customer_ID", "Name")
+      .sort({ createdAt: -1 });
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error WHile Geting Orders",
+      error,
+    });
+  }
+};
+
+//order status
+export const orderStatusController = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const orders = await orderModel.findByIdAndUpdate(
+      orderId,
+      { status },
+      { new: true }
+    );
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error While Updateing Order",
+      error,
+    });
+  }
+};
+
+
+
+
+export const reviewController = async (req,res ) => {
+  try{
+
+
+      const {Comments,Rating} = req.body
+      //validation
+
+
+      if(!Comments){
+          return res.send({message:"Comments is required"})
+      }
+
+      if(!Rating){
+          return res.send({message:"Rating is required"})
+      }
+
+    
+      
+
+
+      // check customer
+
+  
+
+
+      // register user
+
+      // Generate new customerID
+   
+      
+      //save
+      const review = await new reviewModel({Comments,Rating}).save()
+      res.status(201).send({
+          success:true,
+          message:"Review Submitted Successfully"
+      })
+
+      
+
+      // Sending email
+      
+
+  }catch (error){
+
+
+          console.log(error)
+          res.status(500).send({
+              success:false,
+              message:"Error in Registration",
+              error
+          })
+
+          
+
+
+
+
+  }
+
+};

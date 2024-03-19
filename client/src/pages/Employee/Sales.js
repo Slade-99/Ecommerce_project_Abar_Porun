@@ -59,7 +59,7 @@ const CreateCategory = () => {
                   
                 <thead>
                   <tr>
-                    <th scope="col">Decription</th>
+                    <th scope="col">Bill_ID</th>
                     <th scope="col">Date</th>
                     <th scope="col">Amount</th>
                     <th scope="col">Price</th>
@@ -73,7 +73,7 @@ const CreateCategory = () => {
                   {billing?.map((c) => (
                     <>
                       <tr>
-                        <td key={c._id}>{c.Description}</td>
+                        <td key={c._id}>{c.Bill_ID}</td>
                         <td key={c._id}>{c.Date}</td>
                         <td key={c._id}>{c.Amount}</td>
                         <td key={c._id}>{c.Price}</td>

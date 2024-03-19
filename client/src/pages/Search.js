@@ -3,7 +3,10 @@ import Layout from '../components/Layout/Layout';
 import { useSearch } from '../context/search';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart";
+import {toast} from "react-toastify";
 const Search = () => {
+  const[cart,setCart]= useCart();
     const [values,setValues]=useSearch()
     const navigate = useNavigate();
     return (
@@ -20,11 +23,7 @@ const Search = () => {
             {values?.results.map((p) => (
               
               
-              <Link
-              key={p._id}
-              to={`/product/${p.slug}`}
-              className="product-link"
-            >
+              
                 
                 
                 
@@ -43,14 +42,14 @@ const Search = () => {
                     <h5 className="card-title">{p.description}</h5>
                     <p className="card-text">{p.fabric_type}</p>
                     <button class="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
-                  <button class="btn btn-secondary ms-1">ADD TO CART</button>
+                    <button className="btn btn-secondary ms-1" onClick={()=>{setCart([...cart,p]); localStorage.setItem('cart',JSON.stringify([...cart,p])); toast.success("item added to cart");}}>ADD TO CART</button>
                   </div>
                 
                 
                 </div>
                 
              
-                </Link>
+                
             ))}
           </div>
         </div>
