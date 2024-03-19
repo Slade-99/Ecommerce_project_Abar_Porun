@@ -1,22 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import Layout from '../components/Layout/Layout';
-
 import { useCart } from '../context/cart';
 import { useAuth } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
+import DropIn from "braintree-web-drop-in-react";
+import axios from "axios";
+import {toast} from 'react-toastify'
 import AdminMenu from '../components/Layout/AdminMenu';
 import UserMenu from '../components/Layout/UserMenu';
 const CartPage=()=>{
-    const [auth,setAuth]=useAuth();
+  const [auth] = useAuth();
     
     const[cart,setCart]=useCart();
+    const [clientToken, setClientToken] = useState("");
     
+  const [instance, setInstance] = useState("");
+  const [loading, setLoading] = useState(false);
     const navigate=useNavigate();
+    const Customer_ID = auth?.customer?.ID;
+     const currentDate = new Date();
+     const currentTime = currentDate.toLocaleTimeString();
+     const Amount = cart?.length;
+     
+     
+     
     //total price
     const totalPrice=() =>{
         try {
             let total=0;
+            
             cart?.map(item=>{total=total+item.price});
+            
             return total.toLocaleString("bn-BD",{
                 style:"currency",
                 currency: "BDT",
@@ -26,6 +40,8 @@ const CartPage=()=>{
            console.log(error); 
         }
     };
+
+    const Price = totalPrice();
     //delete item
     const removeCartItem=(pid) =>{
         try {
@@ -39,6 +55,54 @@ const CartPage=()=>{
             console.log(error);
         }
     };
+
+
+      //get payment gateway token
+  const getToken = async () => {
+    try {
+      const { data } = await axios.get("/api/v1/product/braintree/token");
+      setClientToken(data?.clientToken);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getToken();
+  }, [auth?.token]);
+
+
+
+
+  //handle payments
+  const handlePayment = async () => {
+    try {
+      setLoading(true);
+      const { nonce } = await instance.requestPaymentMethod();
+      const { data } = await axios.post("/api/v1/product/braintree/payment", {
+        nonce,
+        cart,
+        Customer_ID,
+        currentDate,
+        
+        currentTime,
+        
+      });
+      const{data2} = await axios.post("/api/v1/product/billing",{currentDate,Amount,Customer_ID,Price });
+      
+      
+      
+      setLoading(false);
+      localStorage.removeItem("cart");
+      setCart([]);
+      navigate("/dashboard/customer/orders");
+      toast.success("Payment Completed Successfully ");
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+
     return (
         <Layout>
                               <h1 className="text-center bg-light p-2 mb-1">
@@ -134,8 +198,15 @@ const CartPage=()=>{
                     Plase Login to checkout
                   </button>
                 )}
+                
               </div>
             )}
+                        
+
+
+            </div>
+            
+            
                 
                 
                 
@@ -145,9 +216,41 @@ const CartPage=()=>{
                 
                 
                 
+            </div>
+            
+              {!clientToken || !cart?.length ? (
+                ""
+              ) : (
                 
-                </div>
-            </div></Layout>
+                
+                
+                <>
+                <div className="col-md-3-text-center">
+                  <DropIn
+                    options={{
+                      authorization: clientToken
+                      
+                    }}
+                    onInstance={(instance) => setInstance(instance)}
+                  />
+
+                  <button
+                    className="btn btn-primary"
+                    onClick={handlePayment}
+                    disabled={loading || !instance || !auth?.customer?.address}
+                  >
+                    {loading ? "Processing ...." : "Make Payment"}
+                  </button>
+                  </div>
+                </>
+                
+              
+              
+              )}
+            
+
+            
+            </Layout>
     );
 };
 export default CartPage;

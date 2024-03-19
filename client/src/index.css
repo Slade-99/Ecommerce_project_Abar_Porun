@@ -288,7 +288,7 @@
 .container-fluid .col-md-3 {
   position: relative;
   width: 400px;
-  height: 440px;
+  height: 540px;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, .5);
   border-radius: 20px;
@@ -1075,6 +1075,25 @@ background-color: #e59393;
   transition: height .2s ease;
 }
 
+.col-md-3-text-center  {
+  top: 600px;
+  left: 1500px;
+  position: absolute;
+  width: 400px;
+  height: 320px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  transition: height .2s ease;
+}
+
 
 
 
@@ -1104,3 +1123,128 @@ background-color: #e59393;
 }
 
 
+
+
+/*   user orders Page  */
+
+.container-fluid-2{
+  position: relative;
+  height: 1000px;
+  width: 5000px;
+  
+}
+
+
+
+.container-fluid-2 .col-md-1{
+  position: relative;
+  
+  width: 400px;
+  height: 1440px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  transition: height .2s ease;
+  overflow-y: auto;
+}
+
+
+.card-m-23{
+  position: relative;
+  margin: 20px; /* Adjust as needed */
+  width: 400px;
+  height: 170px;
+  background: transparent;
+  border: 0px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  transform: translate(-1800px,295px);
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.col-md-88{
+  position: relative;
+  margin: 20px; /* Adjust as needed */
+  width: 200px;
+  height: 150px;
+  overflow-y: auto;
+}
+.col-md-89{
+  font-family: "Poppins", sans-serif;
+  font-size: 26px;
+  position: relative;
+  margin: 5px; /* Adjust as needed */
+  width: 400px;
+  height: 200px;
+  transform: translate(300px,-150px);
+}
+
+.col-md-99{
+  position: absolute;
+  width: 1450px;
+  height: 1750px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: height .2s ease;
+  transform: translate(50%,0%);
+  overflow-y: auto;
+}
+
+
+.col-md-99 .table{
+  position: relative;
+  width: 1000px;
+  height: 100px;
+  background-color: #fff5;
+
+  backdrop-filter: blur(7px);
+  box-shadow: 0 .4rem .8rem #0005;
+  border-radius: .8rem;
+
+  overflow: hidden;
+  transform: translate(0%,2%);
+  font-family: "Poppins", sans-serif;
+    
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  overflow-y: auto;
+}
+
+
+
+/*   Submit Reviews Page  */
+.wrapper32 {
+  
+  position: top; /* Change position to absolute */
+  bottom: 250px; /* Align to the bottom */
+  width: 500px;
+  height: 400px; /* Initial height */
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transform: translate(60%,0%);
+  
+}

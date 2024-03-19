@@ -18,7 +18,7 @@ import Delivery_Man_Route from './components/Routes/Delivery_Man_Route';
 import CreateCategory from './pages/Employee/Create_Category';
 import CreateProduct from './pages/Employee/Create_Product';
 import Users from './pages/Employee/Users';
-import Orders from './pages/user/orders';
+
 import Profile from './pages/user/profile';
 import Check_Pending_Deliveries from './pages/Employee/Check_Pending_Deliveries';
 import Check_Conversations from './pages/Employee/Check_Conversations';
@@ -30,6 +30,11 @@ import Search from './pages/Search';
 import ProductDetails from './pages/ProductDetails';
 import PasswordUpdate from './pages/Employee/PasswordUpdate';
 import CartPage from './pages/CartPage';
+import Categories from './pages/Categories';
+import CategoryProduct from './pages/CategoryProduct';
+import Orders from './pages/user/orders';
+import AdminOrders from './pages/Employee/AdminOrders';
+import Reviews from './pages/user/Reviews';
 function App() {
   return (
     <>
@@ -38,6 +43,8 @@ function App() {
 
     <Route  path='/' element={<HomePage/>}/>
     <Route  path='/product/:slug' element={<ProductDetails/>}/>
+    <Route  path='/categories' element={<Categories/>}/>
+    <Route path="/category/:slug" element={<CategoryProduct />} />
     <Route path="/cart" element={<CartPage/>}/>
     <Route path="/search" element={<Search/>}/>
     
@@ -47,6 +54,7 @@ function App() {
     <Route  path='/dashboard' element={<PrivateRoute/>}>
     <Route  path='customer/profile' element={<Profile/>}/>
     <Route  path='customer/orders' element={<Orders/>}/>
+    <Route  path='customer/reviews' element={<Reviews/>}/>
     <Route  path='customer' element={<Dashboard/>}/>
     </Route>
     
@@ -59,6 +67,7 @@ function App() {
     <Route  path='employee_admin/product' element={<Products/>}/>
     <Route  path='employee_admin/product/update-product/:slug' element={<UpdateProduct/>}/>
     <Route  path='employee_admin/users' element={<Users/>}/>
+    <Route  path='employee_admin/orders' element={<AdminOrders/>}/>
     <Route  path='employee_admin/sales' element={<Sales/>}/>
     <Route  path='employee_admin/password_update' element={<PasswordUpdate/>}/>
     </Route>

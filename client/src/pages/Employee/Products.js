@@ -156,7 +156,7 @@ const Products = () => {
                  <div className="card-body">
                     <h5 className="card-title">{p.description}</h5>
                     <p className="card-text">{p.fabric_type}</p>
-                    <button class="btn btn-primary ms-1" onClick={() => navigate(`./update-product/${p.slug}`)}>More Details</button>
+                    <button class="btn btn-primary ms-1" onClick={() => navigate(`./update-product/${p.slug}`)}>Update Details</button>
                   
                   
                     <button className="btn btn-secondary ms-1" onClick={()=>{setCart([...cart,p]); localStorage.setItem('cart',JSON.stringify([...cart,p])); toast.success("item added to cart");}}>ADD TO CART</button>

@@ -7,7 +7,11 @@ import { registerController,
     forgotPasswordController,
     forgotPasswordController2,
     getSingleCustomer,
-    updateCustomer, 
+    updateCustomer,
+    getOrdersController,
+    getAllOrdersController,
+    orderStatusController,
+    reviewController, 
 
 
 } from '../controllers/authController.js'
@@ -25,7 +29,7 @@ router.post('/register/employee', registerController2)
 
 router.post('/login/customer', loginController)
 router.post('/login/employee', loginController2)
-export default router
+
 
 //Forgot Password || POST
 router.post("/forgot-password", forgotPasswordController);
@@ -55,3 +59,25 @@ router.get("/get-customer/:ID", getSingleCustomer);
 
 //UpdateCustomer
 router.put("/update-customer/:ID", updateCustomer);
+
+
+//orders
+router.get("/orders/:ID", requireSignIn, getOrdersController);
+
+//all orders
+router.get("/all-orders", requireSignIn, isAdmin, getAllOrdersController);
+
+// order status update
+router.put(
+  "/order-status/:orderId",
+  requireSignIn,
+  isAdmin,
+  orderStatusController
+);
+
+
+// submit review
+router.post("/review", reviewController);
+
+
+export default router;
