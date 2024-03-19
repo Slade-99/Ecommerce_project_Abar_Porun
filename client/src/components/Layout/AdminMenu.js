@@ -27,6 +27,9 @@ const AdminMenu = () => {
         <NavLink to="/dashboard/employee_admin/password_update" className="list-group-item-list-group-item-action">
           Customer Password Update
         </NavLink>
+        <NavLink to="/dashboard/employee_admin/orders" className="list-group-item-list-group-item-action">
+          Update Order Status
+        </NavLink>
    
       </div>
       </div>

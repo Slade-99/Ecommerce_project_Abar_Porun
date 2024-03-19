@@ -6,15 +6,15 @@ import UserMenu from "../../components/Layout/UserMenu";
 import Layout from "./../../components/Layout/Layout";
 import { useAuth } from '../../context/auth';
 import { Select } from "antd";
-const { Option } = Select;
+
 
 
 const Profile = () => {
 
   const [auth] = useAuth();
-  const navigate = useNavigate();
   
-  const params = useParams();
+  
+  
   const [Name, setName] = useState("");
   const [Password, setPassword] = useState("");
   const [Email, setEmail] = useState("");

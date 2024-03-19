@@ -8,19 +8,13 @@ const billingSchema = new mongoose.Schema({
         required: true,
         unique: true
       },
-      Description: {
-        type: String,
-        required: true
-      },
+      
       Date: {
         type: String,
-        required: true
+        
       },
 
-      Time: {
-        type: String,
-        required: true
-      },
+      
       Amount: {
         type: Number,
         required: true
@@ -35,7 +29,7 @@ const billingSchema = new mongoose.Schema({
         required: true
       },
       Price: {
-        type: Number,
+        type: String,
         required: true
       }
 

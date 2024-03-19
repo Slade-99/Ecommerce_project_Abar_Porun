@@ -3,7 +3,7 @@ import slugify from "slugify";
 
 export const billingController = async (req, res) => {
     try {
-      const { Bill_ID,Description,Date,Time,Amount,Customer_ID,Admin_ID,Price } = req.body;
+      const {currentDate,Amount,Customer_ID,Price } = req.body;
 
       const existingbilling = await billingModel.findOne({ Bill_ID });
       if (existingbilling) {
@@ -12,12 +12,18 @@ export const billingController = async (req, res) => {
           message: "Category Already Exisits",
         });
       }
+
+
+      var totalCount = await billingModel.countDocuments();
+        totalCount = totalCount +1;
+        var Bill_ID = "B_"+totalCount;
+        var Admin_ID = "EA1";
+        var Date = currentDate.split("T")[0];
       const billing = await new billingModel({
         
         Bill_ID,
-        Description,
         Date,
-        Time,
+        
         Amount,
         Customer_ID,
         Admin_ID,
