@@ -13,6 +13,8 @@ import {
   braintreeTokenController,
   brainTreePaymentController,
   productCategoryController,
+  createInvoice,
+ 
 } from "../controllers/productController.js";
 import {  requireSignIn,isAdmin } from "../middlewares/authMiddleware.js";
 import formidable from "express-formidable";
@@ -53,6 +55,8 @@ router.get("/product-list/:page", productListController);
 //create product billing
 router.post("/billing", billingController);
 
+//create invoice
+router.post("/invoice", createInvoice);
 
 //All product billing
 router.get("/billing-all", billingControllerAll);
@@ -72,6 +76,8 @@ router.post("/braintree/payment", requireSignIn, brainTreePaymentController);
 //category wise product
 router.get("/product-category/:slug", productCategoryController);
 
+
+//category wise product
 
 
 export default router;

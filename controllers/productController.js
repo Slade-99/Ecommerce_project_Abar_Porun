@@ -1,12 +1,15 @@
 import productModel from "../models/productModel.js";
 import categoryModel from "../models/categoryModel.js";
+import billingModel from "../models/billingModel.js";
 import fs from "fs";
+import PDFDocument from "pdfkit";
 import slugify from "slugify";
 import braintree from "braintree";
 import dotenv from "dotenv";
 import orderModel from "../models/orderModel.js";
 
 dotenv.config();
+
 
 //payment gateway
 var gateway = new braintree.BraintreeGateway({
@@ -388,3 +391,49 @@ export const brainTreePaymentController = async (req, res) => {
     console.log(error);
   }
 };
+
+export const createInvoice = async (req, res) => {
+  try {
+    // Extract data from the request body
+    const { currentDate,Amount,Price} = req.body;
+
+    // Create a new PDF document
+    const doc = new PDFDocument();
+    const filename = 'invoice.pdf';
+    
+    // Set response headers
+    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+    res.setHeader('Content-type', 'application/pdf');
+
+    var totalCount = await billingModel.countDocuments();
+    totalCount = totalCount;
+    var Bill_ID = "B_"+totalCount;
+    var date = currentDate.split("T")[0];
+   
+    
+    doc.text('ABAR POPRUN\n', { align: 'center' });
+    doc.text('Invoice\n\n\n\n', { align: 'center' });
+    
+    
+    doc.text(`BILL_ID                            TOTAL                            QUANTITY                            DATE\n\n`);
+    doc.text(`${Bill_ID}                                    ${Price}                                   ${Amount}                            ${date}`);
+    
+    
+
+    // Pipe the PDF content to the response
+    doc.pipe(res);
+    
+    
+    doc.end();
+  } catch (error) {
+    console.error('Error generating invoice:', error);
+    res.status(500).send('Error generating invoice');
+  }
+};
+
+
+
+
+
+
+
