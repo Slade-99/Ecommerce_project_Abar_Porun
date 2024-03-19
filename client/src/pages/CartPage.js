@@ -31,15 +31,14 @@ const CartPage=()=>{
             
             cart?.map(item=>{total=total+item.price});
             
-            return total.toLocaleString("bn-BD",{
-                style:"currency",
-                currency: "BDT",
-            }); 
+            return total
             
         }catch (error){
            console.log(error); 
         }
     };
+
+    
 
     const Price = totalPrice();
     //delete item
@@ -73,6 +72,10 @@ const CartPage=()=>{
 
 
 
+
+
+
+
   //handle payments
   const handlePayment = async () => {
     try {
@@ -87,7 +90,12 @@ const CartPage=()=>{
         currentTime,
         
       });
-      const{data2} = await axios.post("/api/v1/product/billing",{currentDate,Amount,Customer_ID,Price });
+      const{data2} = await axios.post("/api/v1/product/billing",{currentDate,Customer_ID,Amount,Price });
+
+      
+      
+
+
       
       
       
@@ -95,6 +103,15 @@ const CartPage=()=>{
       localStorage.removeItem("cart");
       setCart([]);
       navigate("/dashboard/customer/orders");
+
+
+
+      
+
+
+      const customerName="Azwad"
+      const{data3} = await axios.post("/api/v1/product/invoice",{customerName,Customer_ID,Price,Amount,currentDate });
+
       toast.success("Payment Completed Successfully ");
     } catch (error) {
       console.log(error);
@@ -102,6 +119,23 @@ const CartPage=()=>{
     }
   };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
     return (
         <Layout>
