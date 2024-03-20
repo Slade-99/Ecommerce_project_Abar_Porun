@@ -13,6 +13,14 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    colour: {
+      type: String,
+      required: true,
+    },
+    design: {
+      type: String,
+      required: true,
+    },
     slug: {
         type: String,
         required: true,
@@ -27,6 +35,10 @@ const productSchema = new mongoose.Schema(
       },
     price: {
       type: Number,
+      required: true,
+    },
+    price_range: {
+      type: String,
       required: true,
     },
     category: {

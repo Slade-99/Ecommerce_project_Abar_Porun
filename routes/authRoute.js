@@ -11,7 +11,8 @@ import { registerController,
     getOrdersController,
     getAllOrdersController,
     orderStatusController,
-    reviewController, 
+    reviewController,
+    recommendationController, 
 
 
 } from '../controllers/authController.js'
@@ -23,6 +24,7 @@ const router = express.Router()
 
 
 router.post('/register/customer', registerController)
+router.post('/register/customer/recommendation', recommendationController)
 router.post('/register/employee', registerController2)
 
 //LOGIN

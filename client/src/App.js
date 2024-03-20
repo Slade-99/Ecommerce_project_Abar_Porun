@@ -35,6 +35,8 @@ import CategoryProduct from './pages/CategoryProduct';
 import Orders from './pages/user/orders';
 import AdminOrders from './pages/Employee/AdminOrders';
 import Reviews from './pages/user/Reviews';
+import Yours from './pages/user/Yours';
+
 function App() {
   return (
     <>
@@ -53,6 +55,7 @@ function App() {
     
     <Route  path='/dashboard' element={<PrivateRoute/>}>
     <Route  path='customer/profile' element={<Profile/>}/>
+    <Route  path='customer/yours' element={<Yours/>}/>
     <Route  path='customer/orders' element={<Orders/>}/>
     <Route  path='customer/reviews' element={<Reviews/>}/>
     <Route  path='customer' element={<Dashboard/>}/>

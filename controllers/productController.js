@@ -7,6 +7,7 @@ import slugify from "slugify";
 import braintree from "braintree";
 import dotenv from "dotenv";
 import orderModel from "../models/orderModel.js";
+import recommendationModel from "../models/recommendationModel.js";
 
 dotenv.config();
 
@@ -22,7 +23,7 @@ var gateway = new braintree.BraintreeGateway({
 
 export const createProductController = async (req, res) => {
   try {
-    const { description,fabric_type,size, price, category, quantity, admin_id,review } = req.fields;
+    const { description,colour,design,fabric_type,size, price, category, quantity, admin_id,review } = req.fields;
     const { photo } = req.files;
     //alidation
     switch (true) {
@@ -84,6 +85,61 @@ export const getProductController = async (req, res) => {
   try {
     const products = await productModel
       .find({})
+      .populate("category")
+      .populate("admin_id")
+      .select("-photo")
+      .limit(12)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      counTotal: products.length,
+      message: "ALlProducts ",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Erorr in getting products",
+      error: error.message,
+    });
+  }
+};
+
+
+//get a user's recommendation
+export const getUserRecommendationController = async (req, res) => {
+  try {
+    const Customer_ID = req.params.ID;
+    const recommendation = await recommendationModel.findOne({Customer_ID:Customer_ID});
+      
+    res.status(200).send({success: true, message: "Customer Found",recommendation});
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Erorr in getting products",
+      error: error.message,
+    });
+  }
+};
+
+   
+
+
+
+//get the recommended products
+export const getRecommendedProductsController = async (req, res) => {
+  try {
+    const Fabric=req.params.Fabric;
+    const Colour = req.params.Colour;
+    const Design = req.params.Design;
+    const Price = req.params.Price;
+    const products = await productModel
+      .find({price_range: Price, 
+        design: Design,      
+        fabric_type: Fabric,
+        colour: Colour  })
       .populate("category")
       .populate("admin_id")
       .select("-photo")

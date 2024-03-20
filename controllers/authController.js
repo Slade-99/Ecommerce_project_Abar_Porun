@@ -1,6 +1,7 @@
 import customerModel from "../models/customerModel.js"
 import employeeModel from "../models/employeeModel.js";
 import orderModel from "../models/orderModel.js";
+import recommendationModel from "../models/recommendationModel.js";
 import reviewModel from "../models/reviewModel.js";
 import {hashPassword,comparePassword} from './../helpers/authHelper.js';
 import JWT from "jsonwebtoken";
@@ -57,7 +58,7 @@ export const registerController = async (req,res ) => {
     try{
 
 
-        const {Name,Password,Email,Address,Phone,Gender,Question} = req.body
+        const {Name,Password,Email,Address,Phone,Gender,Question,Price,Fabric,Colour,Design} = req.body
         //validation
 
 
@@ -112,6 +113,7 @@ export const registerController = async (req,res ) => {
         
         //save
         const Customer = await new customerModel({Customer_ID,Name,Password,Email,Address,Phone,Gender,Question}).save()
+        
         res.status(201).send({
             success:true,
             message:"User Registered Successfully"
@@ -120,7 +122,7 @@ export const registerController = async (req,res ) => {
         
 
         // Sending email
-        await sendEmail(Email, 'Welcome!', 'Thank you for registering.');
+        await sendEmail(Email, 'Welcome!', `Thank you for registering. Your ID is ${Customer_ID}. \nPlease use this ID to login to to your account`);
 
     }catch (error){
 
@@ -140,6 +142,68 @@ export const registerController = async (req,res ) => {
     }
 
 };
+
+
+export const recommendationController = async (req,res ) => {
+  try{
+
+    var totalCount = await customerModel.countDocuments();
+    totalCount = totalCount
+    var Customer_ID = "C_"+totalCount
+      const {Fabric,Colour,Design,Gender,Price} = req.body
+      //validation
+
+
+     
+
+      
+
+
+      // check customer
+
+  
+
+
+      // register user
+
+      // Generate new customerID
+      
+
+      
+      //save
+      const Recommendation = await new recommendationModel({Customer_ID,Fabric,Colour,Design,Gender,Price}).save()
+      
+      res.status(201).send({
+          success:true,
+          message:"User Registered Successfully"
+      })
+
+      
+
+      // Sending email
+      
+
+  }catch (error){
+
+
+          console.log(error)
+          res.status(500).send({
+              success:false,
+              message:"Error in Registration",
+              error
+          })
+
+          
+
+
+
+
+  }
+
+};
+
+
+
 
 
 /// Employee Register

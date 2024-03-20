@@ -13,6 +13,10 @@ const Register = () => {
     const [Phone,setPhone] = useState("");
     const [Gender,setGender] = useState("");
     const [Question,setQuestion] = useState("");
+    const [Price,setPrice] = useState("");
+    const [Fabric,setFabric] = useState("");
+    const [Colour,setColour] = useState("");
+    const [Design,setDesign] = useState("");
     const navigate = useNavigate();
 
 // form function
@@ -31,7 +35,26 @@ const handleSubmit = async (e) => {
         }else{
             toast.error(res.data.message)
         }
-    }catch(error){
+
+
+        const res2 = await axios.post('/api/v1/auth/register/customer/recommendation',
+        
+        {Fabric,Colour,Design,Gender,Price});
+        if(res.data.success){
+            
+            setTimeout(() => {
+              navigate('/login');
+          }, 2000);
+        }else{
+            toast.error(res.data.message)
+        }
+    
+        
+    
+    
+    
+    
+      }catch(error){
         console.log(error)
         toast.error("Something Went Wrong")
     }
@@ -87,6 +110,50 @@ const handleSubmit = async (e) => {
     <label htmlFor="exampleInputquestion" className="form-label">What is your age?</label>
     <input value = {Question}type="text" required  onChange={(e) =>setQuestion(e.target.value)}  className="form-control" id="exampleInputquestion" />
   </div>
+
+  
+
+  <div className="mb-3">
+  <label htmlFor="exampleInputPrice" className="form-label">Your Price range preference?</label>
+  <select value={Price} onChange={(e) => setPrice(e.target.value)} className="form-select" id="exampleInputPrice">
+    <option value="">Select</option>
+    <option value="High">High</option>
+    <option value="Medium">Medium</option>
+    <option value="Low">Low</option>
+    {/* Add more options as needed */}
+  </select>
+</div>
+
+<div className="mb-3">
+  <label htmlFor="exampleInputFabric" className="form-label">Your Fabric type preference?</label>
+  <select value={Fabric} onChange={(e) => setFabric(e.target.value)} className="form-select" id="exampleInputFabric">
+    <option value="">Select</option>
+    <option value="Cotton">Cotton</option>
+    <option value="Lawn">Lawn</option>
+    <option value="Silk">Silk</option>
+    {/* Add more options as needed */}
+  </select>
+</div>
+
+<div className="mb-3">
+  <label htmlFor="exampleInputColour" className="form-label">Your colour preference?</label>
+  <select value={Colour} onChange={(e) => setColour(e.target.value)} className="form-select" id="exampleInputColour">
+    <option value="">Select</option>
+    <option value="Bright">Bright</option>
+    <option value="Dull">Dull</option>
+    {/* Add more options as needed */}
+  </select>
+</div>
+
+<div className="mb-3">
+  <label htmlFor="exampleInputDesign" className="form-label">Your design preference?</label>
+  <select value={Design} onChange={(e) => setDesign(e.target.value)} className="form-select" id="exampleInputDesign">
+    <option value="">Select</option>
+    <option value="Print">Print</option>
+    <option value="Solid">Solid</option>
+    {/* Add more options as needed */}
+  </select>
+</div>
 
 
 
