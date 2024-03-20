@@ -133,21 +133,24 @@
 
 .wrapper {
   position: absolute; /* Change position to absolute */
-  bottom: 55px;; /* Align to the bottom */
+  top: 50px;; /* Align to the bottom */
   width: 740px;
-  height: 800px; /* Initial height */
+  height: 850px; /* Initial height */
   background: transparent;
   border: 2px solid rgba(255, 255, 255, .5);
-  border-radius: 20px;
+  border-radius: 5px;
   backdrop-filter: blur(20px);
   box-shadow: 0 0 30px rgba(0, 0, 0, .5);
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  overflow-y: auto;
+  
+  padding-top: 20%;
   
 }
 .wrapper2 {
+  
   position: absolute; /* Change position to absolute */
   bottom: 250px;; /* Align to the bottom */
   width: 500px;

@@ -14,6 +14,8 @@ const CreateProduct = () => {
   const [categories, setCategories] = useState([]);
   
   const [description, setDescription] = useState("");
+  const [colour, setColour] = useState("");
+  const [design, setDesign] = useState("");
   const [fabric_type, setFabric_type] = useState("");
   const [size, setSize] = useState("");
   const [price, setPrice] = useState("");
@@ -22,7 +24,15 @@ const CreateProduct = () => {
   const [review, setReview] = useState("");
   const admin_id = auth?.employee?._id;
   const [photo, setPhoto] = useState("");
+  var price_range = "";
+  if(price>3000){
+    var price_range="High";
+  }else if(price>1000){
+    var price_range="Medium";
 
+  }else{
+    var price_range="Low";
+  }
   //get all category
   const getAllCategory = async () => {
     try {
@@ -47,7 +57,10 @@ const CreateProduct = () => {
       const productData = new FormData();
       
       productData.append("description", description);
+      productData.append("colour", colour);
+      productData.append("design", design);
       productData.append("price", price);
+      productData.append("price_range",price_range);
       productData.append("quantity", quantity);
       productData.append("photo", photo);
       productData.append("category", category);
@@ -74,12 +87,12 @@ const CreateProduct = () => {
 
   return (
     <Layout title={"Dashboard - Create Product"}>
-      <div className="container-fluid m-3 p-3">
-        <div className="row">
+      <div className="container-fluid m-3 p-3" style={{ overflowY: 'auto' }}>
+        <div className="row" >
           <div className="col-md-3">
             <AdminMenu />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-9" style={{ overflowY: 'auto' , height:"1000px"}}>
             
             <div className="m-1 w-75">
             <h1>Create Product</h1>
@@ -139,24 +152,59 @@ const CreateProduct = () => {
 
 
               <div className="mb-3">
-                <textarea
-                  type="text"
+                <textarea type="text"
                   value={description}
-                  placeholder="write a description"
+                  placeholder="Product Description"
                   className="form-control"
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
 
               <div className="mb-3">
-                <input
-                  type="text"
-                  value={fabric_type}
-                  placeholder="State the fabric type"
-                  className="form-control"
-                  onChange={(e) => setFabric_type(e.target.value)}
-                />
-              </div>
+  <label htmlFor="colourSelect" className="form-label"></label>
+  <select
+    value={colour}
+    onChange={(e) => setColour(e.target.value)}
+    className="form-control"
+    id="colourSelect"
+  >
+    <option value="">Select Colour</option>
+    <option value="Bright">Bright</option>
+    <option value="Dull">Dull</option>
+  </select>
+</div>
+
+
+<div className="mb-3">
+  <label htmlFor="designSelect" className="form-label"></label>
+  <select
+    value={design}
+    onChange={(e) => setDesign(e.target.value)}
+    className="form-control"
+    id="designSelect"
+  >
+    <option value="">Select Design</option>
+    <option value="Solid">Solid</option>
+    <option value="Print">Print</option>
+  </select>
+</div>
+
+
+<div className="mb-3">
+  <label htmlFor="fabricTypeSelect" className="form-label"></label>
+  <select
+    value={fabric_type}
+    onChange={(e) => setFabric_type(e.target.value)}
+    className="form-control"
+    id="fabricTypeSelect"
+  >
+    <option value="">Select Fabric Type</option>
+    <option value="Silk">Silk</option>
+    <option value="Cotton">Cotton</option>
+    <option value="Lawn">Lawn</option>
+  </select>
+</div>
+
 
 
               <div className="mb-3">
