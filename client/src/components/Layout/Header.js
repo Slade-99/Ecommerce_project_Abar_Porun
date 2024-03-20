@@ -87,6 +87,12 @@ const Header = () => {
                   Dashboard
                 </NavLink>
               </li>
+
+              <li className="nav-item">
+                <NavLink to="/dashboard/customer/yours" className="nav-link ">
+                  Recommended For You
+                </NavLink>
+              </li>
               
               
               

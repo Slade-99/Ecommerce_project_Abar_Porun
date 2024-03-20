@@ -14,6 +14,8 @@ import {
   brainTreePaymentController,
   productCategoryController,
   createInvoice,
+  getUserRecommendationController,
+  getRecommendedProductsController,
  
 } from "../controllers/productController.js";
 import {  requireSignIn,isAdmin } from "../middlewares/authMiddleware.js";
@@ -32,6 +34,12 @@ router.get("/get-product", getProductController);
 
 //single product
 router.get("/get-product/:slug", getSingleProductController);
+
+// get a user's recommendations
+router.get("/userRecommendation/:ID", getUserRecommendationController);
+
+// get a user's recommended products
+router.get("/userRecommendationProducts/:Fabric/:Colour/:Design/:Price", getRecommendedProductsController);
 
 //get photo
 router.get("/product-photo/:pid", productPhotoController);
