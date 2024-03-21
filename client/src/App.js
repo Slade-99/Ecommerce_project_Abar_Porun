@@ -36,6 +36,7 @@ import Orders from './pages/user/orders';
 import AdminOrders from './pages/Employee/AdminOrders';
 import Reviews from './pages/user/Reviews';
 import Yours from './pages/user/Yours';
+import PredictAcceptance from './pages/Employee/PredictAcceptance';
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
     <Route  path='employee_admin/orders' element={<AdminOrders/>}/>
     <Route  path='employee_admin/sales' element={<Sales/>}/>
     <Route  path='employee_admin/password_update' element={<PasswordUpdate/>}/>
+    <Route  path='employee_admin/predict_acceptance' element={<PredictAcceptance/>}/>
     </Route>
 
 
