@@ -9,9 +9,7 @@ const AdminMenu = () => {
     
       <div className="list-group">
       
-        <NavLink to="/dashboard/employee_admin" className="list-group-item-list-group-item-action">
-          Dashboard
-        </NavLink>
+        
         <NavLink to="/dashboard/employee_admin/create_category" className="list-group-item-list-group-item-action">
             Create New Category
         </NavLink>
@@ -29,6 +27,9 @@ const AdminMenu = () => {
         </NavLink>
         <NavLink to="/dashboard/employee_admin/orders" className="list-group-item-list-group-item-action">
           Update Order Status
+        </NavLink>
+        <NavLink to="/dashboard/employee_admin/predict_acceptance" className="list-group-item-list-group-item-action">
+          Predict Acceptance
         </NavLink>
    
       </div>
