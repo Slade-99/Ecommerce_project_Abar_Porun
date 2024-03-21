@@ -12,7 +12,8 @@ import { registerController,
     getAllOrdersController,
     orderStatusController,
     reviewController,
-    recommendationController, 
+    recommendationController,
+    acceptanceController, 
 
 
 } from '../controllers/authController.js'
@@ -80,6 +81,10 @@ router.put(
 
 // submit review
 router.post("/review", reviewController);
+
+
+// predict acceptance
+router.post("/acceptance", acceptanceController);
 
 
 export default router;

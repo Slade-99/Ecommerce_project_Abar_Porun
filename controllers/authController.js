@@ -6,6 +6,7 @@ import reviewModel from "../models/reviewModel.js";
 import {hashPassword,comparePassword} from './../helpers/authHelper.js';
 import JWT from "jsonwebtoken";
 import nodemailer from 'nodemailer';
+import {spawn} from'child_process';
 
 
 
@@ -737,6 +738,135 @@ export const reviewController = async (req,res ) => {
           success:true,
           message:"Review Submitted Successfully"
       })
+
+      
+
+      // Sending email
+      
+
+  }catch (error){
+
+
+          console.log(error)
+          res.status(500).send({
+              success:false,
+              message:"Error in Registration",
+              error
+          })
+
+          
+
+
+
+
+  }
+
+};
+
+
+
+
+
+export const acceptanceController = async (req,res ) => {
+  try{
+
+
+      const {design,colour,fabric_type,price,gender} = req.body
+      //validation
+
+      
+      var Gender = 0;
+      var Design = 0;
+      var Colour = 0;
+      var Fabric = 0;
+      var Price =0;
+      
+      if(gender=="Male"){
+        var Gender = 1;
+      }else{
+        var Gender = 0;
+      }
+
+
+      if(design=="Solid"){
+        var Design=1;
+      }else{
+        var Design=0;
+      }
+
+
+      if(colour=="Bright"){
+        var Colour=1;
+      }else{
+        var Colour=0;
+      }
+
+
+      if(fabric_type=="Cotton"){
+        var Fabric=1;
+      }else if(fabric_type=="Lawn"){
+        var Fabric=0.5;
+      }else{
+        var Fabric = 0;
+      }
+
+
+      if(price=="High"){
+        var Price=1;
+      }else if(price=="Medium"){
+        var Price=0.5;
+      }else{
+        var Price=0;
+      }
+      
+      const inputValues = {
+        'Price': [Price],
+        'Fabric': [Fabric],
+        'Colour': [Colour],
+        'Design': [Design],
+        'Gender': [Gender]
+      };
+      
+      // Convert input values to JSON string
+      const inputJson = JSON.stringify(inputValues);
+
+      
+      const pythonProcess = spawn('python', ['./controllers/471_ml.py']);
+      pythonProcess.stdin.write(inputJson);
+      pythonProcess.stdin.end();
+
+
+      let outputData = "";
+
+    pythonProcess.stdout.on('data', (data) => {
+      // Concatenate the output data
+      outputData = data.toString();
+      
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+      // Log any errors
+      console.error(`stderr: ${data}`);
+    });
+
+    pythonProcess.on('close', (code) => {
+      // Output received, send it back to the client
+      console.log(`child process exited with code ${code}`);
+      res.json({ prediction: outputData });
+    });
+
+
+    
+ 
+    
+      
+
+
+      
+   
+      
+      //save
+      
 
       
 

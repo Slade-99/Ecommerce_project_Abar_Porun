@@ -5,7 +5,19 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-dataset_path = "./dataset.csv"  # the path with username
+
+
+
+def predict_instance(inputs):
+    single_instance = pd.DataFrame(inputs)
+    prediction = model2.predict(single_instance)
+    return prediction[0]
+
+# Read inputs from Node.js and make predictions
+
+
+
+dataset_path = "./ML_Predict/dataset.csv"  # the path with username
 dataset1 = pd.read_csv(dataset_path)    #accessing the dataset
 dataset1.Decision.unique()
 
@@ -42,28 +54,13 @@ model2 = dtc.fit(x_train, y_train)
 
 
 # Assuming you have your trained model as 'model2' and your dataset features stored in a DataFrame 'dataset1'
-def predict_instance(inputs):
-    single_instance = pd.DataFrame(inputs)
-    prediction = model2.predict(single_instance)
-    return prediction[0]
-
-# Read inputs from Node.js and make predictions
-x = {
-    'Price': [1],
-    'Fabric': [1],
-    'Colour': [1],
-    'Design': [1],
-    'Gender': [1]
-}
-single_instance = pd.DataFrame(x)
+inputs = (sys.stdin.read().strip())
+input_json = json.loads(inputs)
+prediction = predict_instance(input_json)
 
 # Predict the output for the single instance
-prediction_single_instance = model2.predict(single_instance)
 
-prediction = model2.predict(single_instance)
-print(prediction[0])
-# Predict the output for the single instance
-
-
+prediction = int(prediction)
 # Print the predicted output
 # Send output back to Node.js
+print(prediction)
