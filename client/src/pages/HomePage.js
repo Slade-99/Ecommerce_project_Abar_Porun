@@ -23,9 +23,9 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
 
   //getall products
-  const getAllProducts = async () => {
+  const getTrendingProducts = async () => {
     try {
-      const { data } = await axios.get("/api/v1/product/get-product");
+      const { data } = await axios.get("/api/v1/product/get-trending-product");
       setProducts(data.products);
     } catch (error) {
       console.log(error);
@@ -35,7 +35,7 @@ const HomePage = () => {
 
   //lifecycle method
   useEffect(() => {
-    getAllProducts();
+    getTrendingProducts();
     getTotal();
     getAllCategory();
     
@@ -83,7 +83,7 @@ const HomePage = () => {
   // filter by cat
 
   useEffect(() => {
-    if (!checked.length || !radio.length) getAllProducts();
+    if (!checked.length || !radio.length) getTrendingProducts();
   }, [checked.length, radio.length]);
 
   useEffect(() => {
@@ -114,7 +114,7 @@ const HomePage = () => {
         
 
         <div className="col-md-8-2 ">
-        <h1>Trending Products with Discounts</h1>
+        <h1>Trending Products with 10% Discounts</h1>
           <div className="grid-container">
             
             {products?.map((p) => (

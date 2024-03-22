@@ -107,7 +107,7 @@ const Yours = () => {
     return (
         
         <Layout>
-        <h1>Welcome to Our Website</h1>
+      
         <div className='container-fluid'>
         
         
@@ -115,9 +115,9 @@ const Yours = () => {
   
           
   
-          <div className="col-md-8-2 ">
-          <h1>Trending Products with Discounts</h1>
-            <div className="grid-container">
+          <div className="col-md-8-22 ">
+          <h1>Recommended For You</h1>
+            <div className="grid-container-2">
               
               {products?.map((p) => (
                 

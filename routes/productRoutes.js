@@ -16,6 +16,7 @@ import {
   createInvoice,
   getUserRecommendationController,
   getRecommendedProductsController,
+  getTrendingProductController,
  
 } from "../controllers/productController.js";
 import {  requireSignIn,isAdmin } from "../middlewares/authMiddleware.js";
@@ -31,6 +32,10 @@ router.put("/update-product/:pid",requireSignIn, isAdmin,formidable(),updateProd
 
 //get products
 router.get("/get-product", getProductController);
+
+
+//get trennding products
+router.get("/get-trending-product", getTrendingProductController);
 
 //single product
 router.get("/get-product/:slug", getSingleProductController);
