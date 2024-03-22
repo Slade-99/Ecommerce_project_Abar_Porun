@@ -24,9 +24,9 @@ const PredictAcceptance = () => {
           
 
           if(data.prediction==1){
-            toast.success("This product will have a high acceptance rate");
+            toast.success("Suitable for this store");
           }else{
-            toast.success("Acceptance of this product is very unlikely");
+            toast.success("Not suitable for this store");
           }
 
           
@@ -53,6 +53,7 @@ const PredictAcceptance = () => {
             </div>
         <div className="wrapper32" style={{ height: "600px" }}>
             <form onSubmit={handleSubmit}>
+            <h4 className="title">Predict Acceptance</h4>
              
     
               

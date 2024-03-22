@@ -640,9 +640,9 @@ export const testController = (req,res)=>{
     //orders
 export const getOrdersController = async (req, res) => {
   try {
-    const Cus = req.params.Customer_ID
+    const Cus = req.params.ID
     const orders = await orderModel
-      .find({ Cus })
+      .find({ Customer_ID:Cus })
       .populate("Customer_ID", "Name")
       .populate({
         path: "products",
