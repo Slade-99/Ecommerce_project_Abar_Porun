@@ -7,9 +7,9 @@ import moment from "moment";
 
 
 const Orders = () => {
-  const [orders, setOrders] = useState([]);
+  
   const [auth] = useAuth();
-  const Customer_ID = auth?.customer?.ID ;
+  const Customer_ID = auth?.customer?.ID;
   const getOrders = async () => {
     try {
       const { data } = await axios.get(`/api/v1/auth/orders/${Customer_ID}`,{
@@ -21,8 +21,13 @@ const Orders = () => {
       console.log(error);
     }
   };
+  
+  
+  const [orders, setOrders] = useState([]);
+  
+  
   useEffect(() => {
-    if (auth?.token) getOrders();}, [auth?.token]);
+     getOrders();});
 
 
     return (

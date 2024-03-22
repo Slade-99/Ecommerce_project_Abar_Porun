@@ -4,16 +4,17 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
 import { useCart } from "../context/cart";
+import { useAuth } from '../context/auth';
 const CategoryProduct = () => {
+  const [auth] = useAuth();
+  const admin_id = auth?.employee?._id;
   const params = useParams();
   const[cart,setCart]= useCart();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
 
-  useEffect(() => {
-    if (params?.slug) getPrductsByCat();
-  }, [params?.slug]);
+
   const getPrductsByCat = async () => {
     try {
       const { data } = await axios.get(
@@ -25,7 +26,9 @@ const CategoryProduct = () => {
       console.log(error);
     }
   };
-
+  useEffect(() => {
+    if (params?.slug) getPrductsByCat();
+  }, [params?.slug]);
   return (
     <Layout>
       <div className="container mt-3">
@@ -37,7 +40,12 @@ const CategoryProduct = () => {
           
             
             
-            <div className="d-flex">
+        <div className="container-fluid">
+          <div className="row">
+          <div className="col-md-9-3">
+          <div className="grid-container">
+
+
               {products?.map((p) => (
                 <div className="card-m-2" style={{ width: "18rem" }}>
                 <img
@@ -49,7 +57,14 @@ const CategoryProduct = () => {
                   <div className="card-body">
                     <h5 className="card-title">{p.description}</h5>
                     <p className="card-text">{p.fabric_type}</p>
-                    <button class="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
+                    
+                    <button class="btn btn-primary ms-1" onClick={() => {
+    if (admin_id) {
+        navigate(`/employee_admin/product/update-product/${p.slug}`);
+    } else {
+        navigate(`/product/${p.slug}`);
+    }
+}}>More Details</button>
                     <button className="btn btn-secondary ms-1" onClick={()=>{setCart([...cart,p]); localStorage.setItem('cart',JSON.stringify([...cart,p])); toast.success("item added to cart");}}>ADD TO CART</button>
                   </div>
 
@@ -57,20 +72,11 @@ const CategoryProduct = () => {
 
                 </div>
               ))}
+              </div>
+              </div>
+              </div>
             </div>
-            {/* <div className="m-2 p-3">
-            {products && products.length < total && (
-              <button
-                className="btn btn-warning"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setPage(page + 1);
-                }}
-              >
-                {loading ? "Loading ..." : "Loadmore"}
-              </button>
-            )}
-          </div> */}
+            
          
         
       </div>

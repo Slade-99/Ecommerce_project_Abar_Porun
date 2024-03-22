@@ -65,7 +65,7 @@ router.put("/update-customer/:ID", updateCustomer);
 
 
 //orders
-router.get("/orders/:ID", requireSignIn, getOrdersController);
+router.get("/orders/:ID", getOrdersController);
 
 //all orders
 router.get("/all-orders", requireSignIn, isAdmin, getAllOrdersController);

@@ -53,7 +53,7 @@ const PasswordUpdate = () => {
         </div>
     <div className="wrapper32" >
         <form onSubmit={handleSubmit}>
-          <h4 className="title">RESET PASSWORD</h4>
+          <h4 className="title">RESET CUSTOMER PASSWORD</h4>
 
           <div className="mb-3">
             <input

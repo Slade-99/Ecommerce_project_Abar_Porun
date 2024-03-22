@@ -124,9 +124,7 @@ const Products = () => {
       <div className='container-fluid'>
       
       <div className="row">
-        <div className="col-md-3">
-          <AdminMenu />
-        </div>
+        
 
         
 
@@ -142,7 +140,7 @@ const Products = () => {
                 
                 
                 
-                <div className="card-m-2" style={{ width: "18rem" }}>
+                <div className="card-m-2" style={{ width: "18rem" , height:"40rem" }}>
                   <img
                     src={`/api/v1/product/product-photo/${p._id}`}
                     className="card-img-top"
@@ -179,8 +177,8 @@ const Products = () => {
         
         <div className="col-md-5-2">
         
-          <div className="column">
-            <h5>Filter by Category</h5>
+          <div className="col">
+            <h5 style={{ fontSize: '25px' }}>Filter by Category</h5>
             {categories?.map((c) => (
               <Checkbox
                 key={c._id}
@@ -204,7 +202,7 @@ const Products = () => {
           
           
           <div className="column">
-          <h4>Filter by Price</h4>
+          <h4 style={{ fontSize: '25px' }}>Filter by Price</h4>
             <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Prices?.map((p) => (
                 <div key={p._id}>

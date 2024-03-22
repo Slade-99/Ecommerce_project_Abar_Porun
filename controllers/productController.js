@@ -107,6 +107,33 @@ export const getProductController = async (req, res) => {
 };
 
 
+
+export const getTrendingProductController = async (req, res) => {
+  try {
+    const products = await productModel
+      .find({})
+      .populate("category")
+      .populate("admin_id")
+      .select("-photo")
+      .limit(6)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      counTotal: products.length,
+      message: "ALlProducts ",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Erorr in getting products",
+      error: error.message,
+    });
+  }
+};
+
+
 //get a user's recommendation
 export const getUserRecommendationController = async (req, res) => {
   try {
