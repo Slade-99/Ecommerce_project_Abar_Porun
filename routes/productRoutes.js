@@ -17,6 +17,9 @@ import {
   getUserRecommendationController,
   getRecommendedProductsController,
   getTrendingProductController,
+  
+  updateStockDecController,
+  updateStockIncController,
  
 } from "../controllers/productController.js";
 import {  requireSignIn,isAdmin } from "../middlewares/authMiddleware.js";
@@ -29,6 +32,14 @@ const router = express.Router();
 router.post("/create-product",requireSignIn, isAdmin,formidable(),createProductController);
 //routes
 router.put("/update-product/:pid",requireSignIn, isAdmin,formidable(),updateProductController);
+
+//routes
+router.put("/stock_reduction/:pid",updateStockDecController);
+
+//routes
+router.put("/stock_addition/:pid",updateStockIncController);
+
+
 
 //get products
 router.get("/get-product", getProductController);

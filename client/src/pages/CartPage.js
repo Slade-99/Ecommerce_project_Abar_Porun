@@ -42,8 +42,9 @@ const CartPage=()=>{
 
     const Price = totalPrice();
     //delete item
-    const removeCartItem=(pid) =>{
+    const removeCartItem= async (pid) =>{
         try {
+            const { data1 } = await axios.put(`/api/v1/product/stock_addition/${pid}`);
             let myCart=[...cart];
             let index=myCart.findIndex((item)=> item._id === pid);
             myCart.splice(index,1);
@@ -90,6 +91,47 @@ const CartPage=()=>{
         currentTime,
         
       });
+
+      const dictionary = new Map([
+       
+      ]);
+      
+      
+      cart.map((i) => {
+        
+        dictionary.set(i._id, i.quantity);
+      
+      
+      
+      });
+    
+
+
+
+      async function postData() {
+        for (const [key, value] of dictionary) {
+          
+          
+            const { data1 } = await axios.delete(`/api/v1/product/delete-product/${key}`);
+          
+        
+        
+        }
+    }
+    
+    postData();
+    
+
+
+
+
+
+
+
+
+
+
+
       const{data2} = await axios.post("/api/v1/product/billing",{currentDate,Customer_ID,Amount,Price });
 
       

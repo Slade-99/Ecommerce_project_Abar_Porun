@@ -7,7 +7,11 @@ const reviewSchema = new mongoose.Schema({
       
       
 
-      
+  product: {
+    type: mongoose.ObjectId,
+    ref: "productModel",
+    required: true,
+},
       
       
       Comments: {

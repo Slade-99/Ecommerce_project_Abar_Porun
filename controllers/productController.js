@@ -475,6 +475,110 @@ export const brainTreePaymentController = async (req, res) => {
   }
 };
 
+
+
+//update stock
+export const updateStockDecController = async (req, res) => {
+  
+    
+  
+  const product = await productModel.findById(req.params.pid);
+  
+  if (!product) {
+    return res.status(404).send({ error: "Product not found" });
+  }
+
+
+  
+
+
+
+  const updateFields = {
+    $inc: { quantity: -1 } // Decrease the quantity field by 1
+  };
+   
+  
+  
+  const updatedProduct = await productModel.findByIdAndUpdate(req.params.pid, updateFields, { new: true });
+  
+   
+
+    // Prepare the update object with provided fields
+  if(updatedProduct){
+    return res.status(200).send({success:"Updated"})
+  }
+
+    
+
+   
+};
+
+
+//update stock
+export const updateStockIncController = async (req, res) => {
+  
+    
+  
+  const product = await productModel.findById(req.params.pid);
+  
+  if (!product) {
+    return res.status(404).send({ error: "Product not found" });
+  }
+
+
+  
+
+
+
+  const updateFields = {
+    $inc: { quantity: 1 } // Decrease the quantity field by 1
+  };
+   
+  
+  
+  const updatedProduct = await productModel.findByIdAndUpdate(req.params.pid, updateFields, { new: true });
+  
+   
+
+    // Prepare the update object with provided fields
+  if(updatedProduct){
+    return res.status(200).send({success:"Updated"})
+  }
+
+    
+
+   
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const createInvoice = async (req, res) => {
   try {
     // Extract data from the request body
