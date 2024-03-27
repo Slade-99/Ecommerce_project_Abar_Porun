@@ -9,8 +9,8 @@ import { Select } from "antd";
 
 const Reviews = () => {
     const [auth] = useAuth();
-  
-  
+    const [product, setProduct] = useState({});
+    const params = useParams();
     const [Comments,setComments] = useState("");
     const [Rating,setRating] = useState("");
     const [Name, setName] = useState("");
@@ -46,18 +46,30 @@ const Reviews = () => {
     }, []);
   
   
+    useEffect(() => {
+      if (params?.slug) getProduct();
+    }, [params?.slug]);
   
+    const getProduct = async () => {
+      try {
+        const { data } = await axios.get(
+          `/api/v1/product/get-product/${params.slug}`
+        );
+        setProduct(data?.product._id);
+        
+      } catch (error) {
+        console.log(error);
+      }
+    };
   
-  
-  
-  
+    
   
     // form function
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
         const res = await axios.post(`/api/v1/auth/review`, {
-          Comments,Rating
+          product,Comments,Rating
           
         });
         if (res && res.data.success) {

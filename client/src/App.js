@@ -58,7 +58,7 @@ function App() {
     <Route  path='customer/profile' element={<Profile/>}/>
     <Route  path='customer/yours' element={<Yours/>}/>
     <Route  path='customer/orders' element={<Orders/>}/>
-    <Route  path='customer/reviews' element={<Reviews/>}/>
+    <Route  path='customer/reviews/:prod' element={<Reviews/>}/>
     <Route  path='customer' element={<Dashboard/>}/>
     </Route>
     
