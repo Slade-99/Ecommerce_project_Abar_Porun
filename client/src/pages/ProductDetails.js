@@ -38,6 +38,11 @@ const ProductDetails = () => {
       console.log(error);
     }
   };
+
+
+  const submitReview = async () => {
+    window.location.href = `/dashboard/customer/reviews/${params.slug}`;
+  };
   return (
     <Layout>
       <div className="row container mt-2">
@@ -57,6 +62,9 @@ const ProductDetails = () => {
           <h6>Price : {product.price}</h6>
           <h6>Category : {product?.category?.name}</h6>
           <button class="btn btn-secondary ms-1" onClick={()=>{setCart([...cart,product]); localStorage.setItem('cart',JSON.stringify([...cart,product])); toast.success("item added to cart");}}>ADD TO CART</button>
+          <button class="btn btn-secondary ms-2" onClick={()=> submitReview()}>Submit Reivew</button>
+        
+        
         </div>
       </div>
       <hr />

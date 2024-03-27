@@ -706,9 +706,13 @@ export const reviewController = async (req,res ) => {
   try{
 
 
-      const {Comments,Rating} = req.body
+      const {product,Comments,Rating} = req.body
       //validation
 
+
+      if(!product){
+        return res.send({message:"Product ID is required"})
+    }
 
       if(!Comments){
           return res.send({message:"Comments is required"})
@@ -733,7 +737,7 @@ export const reviewController = async (req,res ) => {
    
       
       //save
-      const review = await new reviewModel({Comments,Rating}).save()
+      const review = await new reviewModel({product,Comments,Rating}).save()
       res.status(201).send({
           success:true,
           message:"Review Submitted Successfully"
