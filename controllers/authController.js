@@ -768,6 +768,30 @@ export const reviewController = async (req,res ) => {
 };
 
 
+export const reviewFetchController = async (req, res) => {
+  try {
+    const perPage = 3;
+    const ID = req.params.pid;
+    const reviews = await reviewModel
+      .find({product:ID})
+      
+      
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+    res.status(200).send({
+      success: true,
+      reviews,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: false,
+      message: "error in per page ctrl",
+      error,
+    });
+  }
+};
+
 
 
 
