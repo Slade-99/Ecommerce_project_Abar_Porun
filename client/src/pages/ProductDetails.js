@@ -12,6 +12,7 @@ const ProductDetails = () => {
   const [product, setProduct] = useState({});
   const [reviews, setReviews] = useState([]);
   const [pid, setpid] = useState("");
+  const [quantities, setQuantities] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   // Initial details
@@ -48,23 +49,16 @@ const ProductDetails = () => {
 
   // Add product to cart
   const addToCart = (product) => {
-    if (product.quantity > 0) {
-      const existingCartItem = cart.find((item) => item._id === product._id);
-      const existingCartItem_quantity = cart.filter(
-        (item) => item._id === product._id
-      ).length;
-      if (!existingCartItem || existingCartItem_quantity < product.quantity) {
-        setCart([...cart, product]);
-        localStorage.setItem("cart", JSON.stringify([...cart, product]));
-        toast.success("Item added to cart");
-      } else {
-        toast.error("Maximum quantity reached for this item");
-      }
+    const quantityToAdd = quantities[product._id] || 1; // Default to 1 if no quantity is specified
+    if (quantityToAdd <= product.quantity) {
+      product.quantity = quantityToAdd;
+      
+      setCart([...cart,product]); localStorage.setItem('cart',JSON.stringify([...cart,product]));
+      toast.success("Item added to cart");
     } else {
-      toast.error("Item is out of stock");
+      toast.error("Maximum quantity exceeded for this item");
     }
   };
-
   const submitReview = () => {
     navigate(`/dashboard/customer/reviews/${params.slug}`);
   };
@@ -88,13 +82,22 @@ const ProductDetails = () => {
           <h6>Price: {product.price}</h6>
           <h6>Quantity: {product.quantity}</h6>
           <h6>Category: {product?.category?.name}</h6>
-          <button
-            className="btn btn-secondary ms-1"
-            onClick={() => addToCart(product)}
-            disabled={product.quantity === 0}
-          >
-            ADD TO CART
-          </button>
+          <input
+                        type="number"
+                        min="0"
+                        max={product.quantity}
+                        value={quantities[product._id] || ""}
+                        onChange={(e) => setQuantities({ ...quantities, [product._id]: parseInt(e.target.value) })}
+                        className="form-control"
+                        style={{ width: "70px", display: "inline-block", margin: "5px 0" }}
+                      />
+                      <button
+                        className="btn btn-secondary ms-1"
+                        onClick={() => addToCart(product)}
+                        disabled={product.quantity === 0}
+                      >
+                        ADD TO CART
+                      </button>
           <button className="btn btn-secondary ms-2" onClick={submitReview}>
             Submit Review
           </button>
