@@ -17,15 +17,24 @@ const orderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "Not Process",
-      enum: ["Not Process", "Processing", "Shipped", "deliverd", "cancel"],
+      default: "Not Processing",
+      enum: ["Not Processing", "Processing", "Shipped", "Delivered", "Cancelled"],
     },
     Date: {
       type: String,
       required: true
     },
+    
     Time: {
       type: String,
+      required: true
+    },
+    Quantity: {
+      type: Number,
+      required: true
+    },
+    Price: {
+      type: Number,
       required: true
     },
   },

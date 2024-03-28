@@ -646,7 +646,7 @@ export const getOrdersController = async (req, res) => {
       .populate("Customer_ID", "Name")
       .populate({
         path: "products",
-        select: "description price", 
+        select: "description price quantity", 
       })
       ;
     res.json(orders);

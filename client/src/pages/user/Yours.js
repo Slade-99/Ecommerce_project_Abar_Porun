@@ -16,11 +16,21 @@ const Yours = () => {
     const [Colour, setColour] = useState("");
     const [Design, setDesign] = useState("");
     const [Price, setPrice] = useState("");
-    
+    const [quantities, setQuantities] = useState({});
     const [auth] = useAuth();
     const Customer_ID = auth?.customer?.ID ;
 
-  
+    const addToCart = (product) => {
+      const quantityToAdd = quantities[product._id] || 1; // Default to 1 if no quantity is specified
+      if (quantityToAdd <= product.quantity) {
+        product.quantity = quantityToAdd;
+        
+        setCart([...cart,product]); localStorage.setItem('cart',JSON.stringify([...cart,product]));
+        toast.success("Item added to cart");
+      } else {
+        toast.error("Maximum quantity exceeded for this item");
+      }
+    };
     
 
     const getSingleCustomer = async () => {
@@ -127,10 +137,11 @@ const Yours = () => {
                   
                   
                   
-                  <div className="card-m-2" style={{ width: "18rem" }}>
+                  <div className="card-m-2" style={{  width: "18rem",height:"30rem" }}>
                     <img
                       src={`/api/v1/product/product-photo/${p._id}`}
                       className="card-img-top"
+                      style={{ width: "10rem",height:"20rem" }}
                       alt={p.name}
                     />
                     
@@ -144,8 +155,22 @@ const Yours = () => {
                       <button class="btn btn-primary ms-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
                     
                     
-                      <button className="btn btn-secondary ms-1" onClick={()=>{setCart([...cart,p]); localStorage.setItem('cart',JSON.stringify([...cart,p])); toast.success("item added to cart");}}>ADD TO CART</button>
-                    
+                      <input
+                        type="number"
+                        min="0"
+                        max={p.quantity}
+                        value={quantities[p._id] || ""}
+                        onChange={(e) => setQuantities({ ...quantities, [p._id]: parseInt(e.target.value) })}
+                        className="form-control"
+                        style={{ width: "70px", display: "inline-block", margin: "5px 0" }}
+                      />
+                      <button
+                        className="btn btn-secondary ms-1"
+                        onClick={() => addToCart(p)}
+                        disabled={p.quantity === 0}
+                      >
+                        ADD TO CART
+                      </button>
                     </div>
                   
                   

@@ -20,7 +20,7 @@ const CartPage=()=>{
     const Customer_ID = auth?.customer?.ID;
      const currentDate = new Date();
      const currentTime = currentDate.toLocaleTimeString();
-     const Amount = cart?.length;
+     
      
      
      
@@ -29,7 +29,7 @@ const CartPage=()=>{
         try {
             let total=0;
             
-            cart?.map(item=>{total=total+item.price});
+            cart?.map(item=>{total=total+(item.price)*(item.quantity)});
             
             return total
             
@@ -38,9 +38,23 @@ const CartPage=()=>{
         }
     };
 
+    const totalQuantity=() =>{
+      try {
+          let total=0;
+          
+          cart?.map(item=>{total=total+(item.quantity)});
+          
+          return total
+          
+      }catch (error){
+         console.log(error); 
+      }
+  };
+
     
 
     const Price = totalPrice();
+    const quant = totalQuantity();
     //delete item
     const removeCartItem= async (pid) =>{
         try {
@@ -89,7 +103,8 @@ const CartPage=()=>{
         currentDate,
         
         currentTime,
-        
+        quant,
+        Price,
       });
 
       const dictionary = new Map([
@@ -113,8 +128,8 @@ const CartPage=()=>{
         
         for (const [key, value] of dictionary) {
           
-
-          const { data1 } = await axios.put(`/api/v1/product/stock_reduction/${key}`);
+          for (let i=0;i<value;i++){
+          const { data1 } = await axios.put(`/api/v1/product/stock_reduction/${key}`);}
         
       
       
@@ -124,41 +139,41 @@ const CartPage=()=>{
         
           
 
-            const { data1 } = await axios.delete(`/api/v1/product/clear-stock`);
+            
           
         
         
         
     }
     
+    postData();
     
-    
 
 
 
 
 
 
-
+const Amount = quant
 
 
 
 
       const{data2} = await axios.post("/api/v1/product/billing",{currentDate,Customer_ID,Amount,Price });
-
       
       
+      
 
-
+      
       
       
       
       setLoading(false);
-      postData();
+      
       localStorage.removeItem("cart");
       setCart([]);
       navigate("/dashboard/customer/orders");
-
+      //const { data5 } = await axios.delete(`/api/v1/product/clear-stock`);
 
 
       
@@ -202,6 +217,8 @@ const CartPage=()=>{
                     </h4>
              <div className="container-fluid">
             <div className="row">
+              
+              
             <div className="col-md-3">
           <UserMenu />
         </div>
@@ -233,6 +250,7 @@ const CartPage=()=>{
                                 <h4>Name: {p.description}</h4>
                                     <h4>Fabric: {p.fabric_type}</h4>
                                     <h4>Price: {p.price}</h4>
+                                    <h4>Quantity: {p.quantity}</h4>
                                     <button className ="btn btn-danger" onClick={() => removeCartItem()}>Remove</button>
                                     </div>
                                 </div>

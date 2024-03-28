@@ -36,6 +36,7 @@ const Orders = () => {
           <div className="row">
             
             
+            
               
               {orders?.map((o, i) => {
                 return (
@@ -45,21 +46,26 @@ const Orders = () => {
                       <thead>
                         <tr>
                           <th scope="col">#</th>
+                          <th scope="col">ID</th>
                           <th scope="col">Status</th>
                           
                           <th scope="col"> date</th>
                           <th scope="col">Payment</th>
+                          <th scope="col">Price</th>
                           <th scope="col">Quantity</th>
+                          
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td>{i + 1}</td>
+                          <td>{o?._id.slice(-7,-1)}</td>
                           <td>{o?.status}</td>
                          
                           <td>{o?.Date.split("T")[0]}</td>
                           <td>{o?.payment.success ? "Success" : "Failed"}</td>
-                          <td>{o?.products?.length}</td>
+                          <td>{o?.Price}</td>
+                          <td>{o?.Quantity}</td>
                         </tr>
                       </tbody>
                       </section>
@@ -81,6 +87,7 @@ const Orders = () => {
                           
                           <p> Name: {p.description}</p>
                           <p>Price : {p.price}</p>
+                          
                         </div>
                       </div>
                     ))}
