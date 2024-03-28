@@ -21,6 +21,7 @@ import {
   updateStockDecController,
   updateStockIncController,
   clearStockController,
+  productFiltersController2,
  
 } from "../controllers/productController.js";
 import {  requireSignIn,isAdmin } from "../middlewares/authMiddleware.js";
@@ -70,6 +71,13 @@ router.delete("/clear-stock", clearStockController);
 
 //filter product
 router.post("/product-filters", productFiltersController);
+
+
+
+//only price filter product
+router.post("/product-filters2", productFiltersController2);
+
+
 
 //product count
 router.get("/product-count", productCountController);

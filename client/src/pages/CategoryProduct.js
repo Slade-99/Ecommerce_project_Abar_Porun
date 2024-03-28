@@ -5,6 +5,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useCart } from "../context/cart";
 import { useAuth } from '../context/auth';
+import { Radio } from "antd";
+import { Prices } from "../components/Prices";
 
 const CategoryProduct = () => {
   const [auth] = useAuth();
@@ -15,6 +17,7 @@ const CategoryProduct = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
+  const [radio, setRadio] = useState([]);
 
   const getProductsByCat = async () => {
     try {
@@ -43,14 +46,11 @@ const CategoryProduct = () => {
 
   const addToCart = (product) => {
     if (product.quantity > 0) {
-      // Check if the product is already in the cart
       const existingCartItem = cart.find(item => item._id === product._id);
       const existingCartItem_quantity = cart.filter(item => item._id === product._id).length;
       if (!existingCartItem || existingCartItem_quantity < product.quantity) {
-        // Add product to cart if it's not already added or the quantity is less than the available quantity
         setCart([...cart,product]); localStorage.setItem('cart',JSON.stringify([...cart,product]));
         toast.success("Item added to cart");
-        
       } else {
         toast.error("Maximum quantity reached for this item");
       }
@@ -59,16 +59,22 @@ const CategoryProduct = () => {
     }
   };
 
+  const filteredProducts = products.filter(p => {
+    if (radio.length === 0) return true; // If no price range is selected, return all products
+    const [lowerLimit, upperLimit] = radio;
+    return p.price >= lowerLimit && p.price <= upperLimit;
+  });
+
   return (
     <Layout>
       <div className="container mt-3">
         <h4 className="text-center">Category - {category?.name}</h4>
-        <h6 className="text-center">{products?.length} result found </h6>
+        <h6 className="text-center">{filteredProducts.length} result found </h6>
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-9-3">
               <div className="grid-container">
-                {products?.map((p) => (
+                {filteredProducts.map((p) => (
                   <div className={`card-m-2 ${p.quantity === 0 ? 'disabled' : ''}`} style={{ width: "18rem" }} key={p._id}>
                     <img
                       src={`/api/v1/product/product-photo/${p._id}`}
@@ -96,6 +102,18 @@ const CategoryProduct = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+          <div className="col-md-5-3">
+            <div className="column">
+              <h4 style={{ fontSize: '25px' }}>Filter by Price</h4>
+              <Radio.Group onChange={(e) => setRadio(e.target.value)}>
+                {Prices?.map((p) => (
+                  <div key={p._id}>
+                    <Radio value={p.array}>{p.name}</Radio>
+                  </div>
+                ))}
+              </Radio.Group>
             </div>
           </div>
         </div>
