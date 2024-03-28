@@ -13,7 +13,8 @@ import { registerController,
     orderStatusController,
     reviewController,
     recommendationController,
-    acceptanceController, 
+    acceptanceController,
+    reviewFetchController, 
 
 
 } from '../controllers/authController.js'
@@ -63,6 +64,9 @@ router.get("/get-customer/:ID", getSingleCustomer);
 //UpdateCustomer
 router.put("/update-customer/:ID", updateCustomer);
 
+
+//Get reviews
+router.get("/get-reviews/:pid", reviewFetchController);
 
 //orders
 router.get("/orders/:ID", getOrdersController);

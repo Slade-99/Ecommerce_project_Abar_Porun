@@ -13,7 +13,7 @@ const Reviews = () => {
     const params = useParams();
     const [Comments,setComments] = useState("");
     const [Rating,setRating] = useState("");
-    const [Name, setName] = useState("");
+    const [ID, setID] = useState("");
     const [Password, setPassword] = useState("");
     const [Email, setEmail] = useState("");
     const [Address, setAddress] = useState("");
@@ -22,34 +22,10 @@ const Reviews = () => {
     const [Question, setAge] = useState("");
     const Customer_ID = auth?.customer?.ID;
     
-    const getSingleCustomer = async () => {
-      try {
-        const { data } = await axios.get(
-          `/api/v1/auth/get-customer/${Customer_ID}`
-        );
-        
-        setName(data.customer.Name);
-        setPassword(data.customer.Password);
-        setEmail(data.customer.Email);
-        setAddress(data.customer.Address);
-        setPhone(data.customer.Phone);
-        setGender(data.customer.Gender);
-        setAge(data.customer.Question);
-        
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    useEffect(() => {
-      getSingleCustomer();
-      //eslint-disable-next-line
-    }, []);
+
   
-  
-    useEffect(() => {
-      if (params?.slug) getProduct();
-    }, [params?.slug]);
-  
+
+    //getProduct
     const getProduct = async () => {
       try {
         const { data } = await axios.get(
@@ -62,7 +38,9 @@ const Reviews = () => {
       }
     };
   
-    
+    useEffect(() => {
+      if (params?.slug) getProduct();
+    }, [params?.slug]); 
   
     // form function
     const handleSubmit = async (e) => {
@@ -101,6 +79,8 @@ const Reviews = () => {
         <div className="wrapper32" >
             <form onSubmit={handleSubmit}>
             <h4>Submit Reviews</h4>
+            
+            
              
     
               
