@@ -131,7 +131,7 @@ const CartPage=()=>{
         
     }
     
-    postData();
+    
     
 
 
@@ -154,6 +154,7 @@ const CartPage=()=>{
       
       
       setLoading(false);
+      postData();
       localStorage.removeItem("cart");
       setCart([]);
       navigate("/dashboard/customer/orders");

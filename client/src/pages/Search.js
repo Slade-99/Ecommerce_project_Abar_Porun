@@ -53,7 +53,11 @@ const Search = () => {
           console.log(error);
       }
   };
-
+  const filteredProducts = values?.results.filter(p => {
+    if (radio.length === 0) return true; // If no price range is selected, return all products
+    const [lowerLimit, upperLimit] = radio;
+    return p.price >= lowerLimit && p.price <= upperLimit;
+  });
 
 
     
@@ -63,7 +67,7 @@ const Search = () => {
                 
                     <h1 className="text-center"> Search Results</h1>
                    
-                    <h6 className="text-center">{values?.results.length <1? 'No products found' :`Found: ${values?.results.length}` }</h6>
+                    <h6 className="text-center">{filteredProducts.length <1? 'No products found' :`Found: ${filteredProducts.length}` }</h6>
             
           
           <div className="container-fluid">
@@ -72,7 +76,7 @@ const Search = () => {
           <div className="grid-container">
 
             
-            {values?.results.map((p) => (
+            {filteredProducts.map((p) => (
               
               
               
@@ -113,6 +117,20 @@ const Search = () => {
             </div>
             </div>
 
+
+
+            <div className="col-md-5-3">
+            <div className="column">
+              <h4 style={{ fontSize: '25px' }}>Filter by Price</h4>
+              <Radio.Group onChange={(e) => setRadio(e.target.value)}>
+                {Prices?.map((p) => (
+                  <div key={p._id}>
+                    <Radio value={p.array}>{p.name}</Radio>
+                  </div>
+                ))}
+              </Radio.Group>
+            </div>
+          </div>
     
 
 
