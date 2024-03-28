@@ -24,7 +24,23 @@ const Search = () => {
     const navigate = useNavigate();
     
 
-
+    const addToCart = (product) => {
+        if (product.quantity > 0) {
+          // Check if the product is already in the cart
+          const existingCartItem = cart.find(item => item._id === product._id);
+          const existingCartItem_quantity = cart.filter(item => item._id === product._id).length;
+          if (!existingCartItem || existingCartItem_quantity < product.quantity) {
+            // Add product to cart if it's not already added or the quantity is less than the available quantity
+            setCart([...cart,product]); localStorage.setItem('cart',JSON.stringify([...cart,product]));
+            toast.success("Item added to cart");
+            
+          } else {
+            toast.error("Maximum quantity reached for this item");
+          }
+        } else {
+          toast.error("Item is out of stock");
+        }
+      };
 
 
 
@@ -80,21 +96,13 @@ const Search = () => {
                         }
                         }}>More Details</button>
                   
-                  <button 
-                      className="btn btn-secondary ms-1" 
-                      onClick={() => {
-                          if (p.quantity > 0) {
-                              setCart([...cart, p]);
-                              localStorage.setItem('cart', JSON.stringify([...cart, p]));
-                              toast.success("Item added to cart"); removeStockItem(p._id);
-                          } else {
-                              toast.error("Item is out of stock");
-                          }
-                      }}
-                      disabled={p.quantity === 0}
-                  >
-                      ADD TO CART
-                  </button>
+                  <button
+                        className="btn btn-secondary ms-1"
+                        onClick={() => addToCart(p)}
+                        disabled={p.quantity === 0}
+                      >
+                        ADD TO CART
+                      </button>
               </div>
           </div>
                 
