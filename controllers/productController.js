@@ -8,6 +8,7 @@ import braintree from "braintree";
 import dotenv from "dotenv";
 import orderModel from "../models/orderModel.js";
 import recommendationModel from "../models/recommendationModel.js";
+import path from 'path';
 
 dotenv.config();
 
@@ -487,7 +488,7 @@ export const productCategoryController = async (req, res) => {
 //payment
 export const brainTreePaymentController = async (req, res) => {
   try {
-    const { nonce, cart , Customer_ID , currentDate, currentTime } = req.body;
+    const { nonce, cart , Customer_ID , currentDate, currentTime,quant ,Price} = req.body;
     let total = 0;
     cart.map((i) => {
       total += i.price;
@@ -495,6 +496,7 @@ export const brainTreePaymentController = async (req, res) => {
     let newTransaction = gateway.transaction.sale(
       {
         amount: total,
+        
         paymentMethodNonce: nonce,
         options: {
           submitForSettlement: true,
@@ -508,6 +510,8 @@ export const brainTreePaymentController = async (req, res) => {
             Customer_ID: Customer_ID,
             Date:currentDate,
             Time:currentTime,
+            Quantity:quant,
+            Price:Price,
           }).save();
           res.json({ ok: true });
         } else {
@@ -519,7 +523,6 @@ export const brainTreePaymentController = async (req, res) => {
     console.log(error);
   }
 };
-
 
 
 //update stock
@@ -627,7 +630,7 @@ export const updateStockIncController = async (req, res) => {
 export const createInvoice = async (req, res) => {
   try {
     // Extract data from the request body
-    const { currentDate,Amount,Price} = req.body;
+    const { currentDate,Amount,Price,items} = req.body;
 
     // Create a new PDF document
     const doc = new PDFDocument();
@@ -641,15 +644,31 @@ export const createInvoice = async (req, res) => {
     totalCount = totalCount;
     var Bill_ID = "B_"+totalCount;
     var date = currentDate.split("T")[0];
+
+    const logoPath = 'logo.png'; 
+    const signaturePath = 'signature.png';// Adjust the filename and path as needed
+    doc.image(logoPath, 25, 25, { width: 85 });
    
     
     doc.text('ABAR POPRUN\n', { align: 'center' });
+    doc.text('------------------\n', { align: 'center' });
     doc.text('Invoice\n\n\n\n', { align: 'center' });
     
     
-    doc.text(`BILL_ID                            TOTAL                            QUANTITY                            DATE\n\n`);
+    doc.text(`BILL_ID                            TOTAL                            QUANTITY                            DATE\n`);
+    doc.text(`____________________________________________________________________\n`);
     doc.text(`${Bill_ID}                                    ${Price}                                   ${Amount}                            ${date}`);
     
+
+        // Add rows dynamically for each item in the cart using map
+    doc.text('___________',50,600);
+    doc.text('Your signature',50,620);
+
+
+    
+    doc.image(signaturePath,450,580,{ width: 60 });
+    doc.text('___________',450,600);
+    doc.text("Employee's signature",450,620);
     
 
     // Pipe the PDF content to the response
@@ -662,8 +681,44 @@ export const createInvoice = async (req, res) => {
     res.status(500).send('Error generating invoice');
   }
 };
+/*
+export const createInvoice = async (req, res) => {
+  try {
+    // Extract data from the request body
+    const { currentDate, cart } = req.body;
 
+    // Create a new PDF document
+    const doc = new PDFDocument();
+    const filename = 'invoice.pdf';
+    
+    // Set response headers
+    res.setHeader('Content-disposition', 'attachment; filename="' + filename + '"');
+    res.setHeader('Content-type', 'application/pdf');
 
+    var totalCount = await billingModel.countDocuments();
+    totalCount = totalCount;
+    var Bill_ID = "B_" + totalCount;
+    var date = currentDate.split("T")[0];
+    
+    doc.text('ABAR POPRUN\n', { align: 'center' });
+    doc.text('Invoice\n\n\n\n', { align: 'center' });
+    doc.text(`BILL_ID\tTOTAL\tQUANTITY\tDATE\n\n`);
+    doc.text(`${Bill_ID}\tPrice\tAmount\t${date}\n\n`);
+    
+    // Add rows dynamically for each item in the cart
+    cart.forEach((item) => {
+      doc.text(`${item.description}\t${item.price}\n`);
+    });
+
+    // Pipe the PDF content to the response
+    doc.pipe(res);
+    doc.end();
+  } catch (error) {
+    console.error('Error generating invoice:', error);
+    res.status(500).send('Error generating invoice');
+  }
+};
+*/
 
 
 

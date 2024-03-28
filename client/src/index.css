@@ -868,7 +868,7 @@ background-color: #e59393;
 .card-m-2 {
   margin: 80px; /* Adjust as needed */
   width: 18rem;
-  height: 500px;
+  height: 700px;
   background: transparent;
   border: 0px solid rgba(255, 255, 255, .5);
   border-radius: 20px;
@@ -885,7 +885,7 @@ background-color: #e59393;
 
 /* Styles for the card image */
 .card-img-top {
-  width: 100%;
+  width: 50%;
   height: 80%;
 }
 

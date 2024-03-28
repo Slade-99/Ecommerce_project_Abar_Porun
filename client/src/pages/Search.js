@@ -18,6 +18,7 @@ const Search = () => {
   const [checked, setChecked] = useState([]);
   const [total, setTotal] = useState(0);
   const [radio, setRadio] = useState([]);
+  const [quantities, setQuantities] = useState({});
   const admin_id = auth?.employee?._id;
  
     const [values,setValues]=useSearch();
@@ -25,22 +26,16 @@ const Search = () => {
     
 
     const addToCart = (product) => {
-        if (product.quantity > 0) {
-          // Check if the product is already in the cart
-          const existingCartItem = cart.find(item => item._id === product._id);
-          const existingCartItem_quantity = cart.filter(item => item._id === product._id).length;
-          if (!existingCartItem || existingCartItem_quantity < product.quantity) {
-            // Add product to cart if it's not already added or the quantity is less than the available quantity
-            setCart([...cart,product]); localStorage.setItem('cart',JSON.stringify([...cart,product]));
-            toast.success("Item added to cart");
-            
-          } else {
-            toast.error("Maximum quantity reached for this item");
-          }
-        } else {
-          toast.error("Item is out of stock");
-        }
-      };
+      const quantityToAdd = quantities[product._id] || 1; // Default to 1 if no quantity is specified
+      if (quantityToAdd <= product.quantity) {
+        product.quantity = quantityToAdd;
+        
+        setCart([...cart,product]); localStorage.setItem('cart',JSON.stringify([...cart,product]));
+        toast.success("Item added to cart");
+      } else {
+        toast.error("Maximum quantity exceeded for this item");
+      }
+    };
 
 
 
@@ -83,10 +78,11 @@ const Search = () => {
                 
                 
                 
-              <div className={`card-m-2 ${p.quantity === 0 ? 'disabled' : ''}`} style={{ width: "18rem" }}>
+              <div className={`card-m-2 ${p.quantity === 0 ? 'disabled' : ''}`} style={{  width: "18rem",height:"30rem" }}>
               <img
                   src={`/api/v1/product/product-photo/${p._id}`}
                   className="card-img-top"
+                  style={{ width: "10rem",height:"20rem" }}
                   alt={p.name}
               />
               <div className="card-body">
@@ -99,8 +95,16 @@ const Search = () => {
                         navigate(`/product/${p.slug}`);
                         }
                         }}>More Details</button>
-                  
-                  <button
+                  <input
+                        type="number"
+                        min="0"
+                        max={p.quantity}
+                        value={quantities[p._id] || ""}
+                        onChange={(e) => setQuantities({ ...quantities, [p._id]: parseInt(e.target.value) })}
+                        className="form-control"
+                        style={{ width: "70px", display: "inline-block", margin: "5px 0" }}
+                      />
+                      <button
                         className="btn btn-secondary ms-1"
                         onClick={() => addToCart(p)}
                         disabled={p.quantity === 0}
