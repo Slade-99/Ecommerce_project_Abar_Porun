@@ -44,7 +44,7 @@ const CartPage=()=>{
     //delete item
     const removeCartItem= async (pid) =>{
         try {
-            const { data1 } = await axios.put(`/api/v1/product/stock_addition/${pid}`);
+            
             let myCart=[...cart];
             let index=myCart.findIndex((item)=> item._id === pid);
             myCart.splice(index,1);
@@ -109,14 +109,26 @@ const CartPage=()=>{
 
 
       async function postData() {
+        
+        
         for (const [key, value] of dictionary) {
           
+
+          const { data1 } = await axios.put(`/api/v1/product/stock_reduction/${key}`);
+        
+      
+      
+      }
+        
+        
+        
           
-            const { data1 } = await axios.delete(`/api/v1/product/delete-product/${key}`);
+
+            const { data1 } = await axios.delete(`/api/v1/product/clear-stock`);
           
         
         
-        }
+        
     }
     
     postData();
@@ -220,7 +232,7 @@ const CartPage=()=>{
                                 <h4>Name: {p.description}</h4>
                                     <h4>Fabric: {p.fabric_type}</h4>
                                     <h4>Price: {p.price}</h4>
-                                    <button className ="btn btn-danger" onClick={()=> removeCartItem(p._id)}>Remove</button>
+                                    <button className ="btn btn-danger" onClick={() => removeCartItem()}>Remove</button>
                                     </div>
                                 </div>
                             

@@ -244,6 +244,28 @@ export const deleteProductController = async (req, res) => {
 
 
 
+// delete where quantity===0
+export const clearStockController = async (req, res) => {
+  try {
+    // Delete all products where quantity equals 0
+    await productModel.deleteMany({ quantity: 0 });
+
+    res.status(200).send({
+      success: true,
+      message: "Products with quantity 0 deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error while deleting products with quantity 0",
+      error,
+    });
+  }
+};
+
+
+
 //upate product
 export const updateProductController = async (req, res) => {
   try {
