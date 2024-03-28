@@ -20,6 +20,7 @@ import {
   
   updateStockDecController,
   updateStockIncController,
+  clearStockController,
  
 } from "../controllers/productController.js";
 import {  requireSignIn,isAdmin } from "../middlewares/authMiddleware.js";
@@ -63,7 +64,8 @@ router.get("/product-photo/:pid", productPhotoController);
 //delete rproduct
 router.delete("/delete-product/:pid", deleteProductController);
 
-
+//delete rproduct
+router.delete("/clear-stock", clearStockController);
 
 
 //filter product
