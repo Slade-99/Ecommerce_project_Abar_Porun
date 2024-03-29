@@ -767,6 +767,7 @@ export const reviewController = async (req,res ) => {
 
 
 
+
 export const acceptanceController = async (req,res ) => {
   try{
 
@@ -774,13 +775,13 @@ export const acceptanceController = async (req,res ) => {
       const {design,colour,fabric_type,price,gender} = req.body
       //validation
 
-      
+
       var Gender = 0;
       var Design = 0;
       var Colour = 0;
       var Fabric = 0;
       var Price =0;
-      
+
       if(gender=="Male"){
         var Gender = 1;
       }else{
@@ -818,7 +819,7 @@ export const acceptanceController = async (req,res ) => {
       }else{
         var Price=0;
       }
-      
+
       const inputValues = {
         'Price': [Price],
         'Fabric': [Fabric],
@@ -826,11 +827,11 @@ export const acceptanceController = async (req,res ) => {
         'Design': [Design],
         'Gender': [Gender]
       };
-      
+
       // Convert input values to JSON string
       const inputJson = JSON.stringify(inputValues);
 
-      
+
       const pythonProcess = spawn('python', ['./controllers/471_ml.py']);
       pythonProcess.stdin.write(inputJson);
       pythonProcess.stdin.end();
@@ -841,7 +842,7 @@ export const acceptanceController = async (req,res ) => {
     pythonProcess.stdout.on('data', (data) => {
       // Concatenate the output data
       outputData = data.toString();
-      
+
     });
 
     pythonProcess.stderr.on('data', (data) => {
@@ -856,22 +857,22 @@ export const acceptanceController = async (req,res ) => {
     });
 
 
-    
- 
-    
-      
 
 
-      
-   
-      
+
+
+
+
+
+
+
       //save
-      
 
-      
+
+
 
       // Sending email
-      
+
 
   }catch (error){
 
@@ -883,7 +884,7 @@ export const acceptanceController = async (req,res ) => {
               error
           })
 
-          
+
 
 
 

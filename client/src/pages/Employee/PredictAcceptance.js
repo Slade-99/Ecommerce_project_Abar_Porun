@@ -15,34 +15,34 @@ const PredictAcceptance = () => {
     const [fabric_type,setFabric_type] = useState("");
     const [price,setPrice] = useState("");
     const [gender,setGender] = useState("");
-  
-  
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
           const {data} = await axios.post(`/api/v1/auth/acceptance`, {design,colour,fabric_type,price,gender});
-          
+
 
           if(data.prediction==1){
-            toast.success("Suitable for this store");
+            toast.success("Accepted");
           }else{
-            toast.success("Not suitable for this store");
+            toast.success("Rejected");
           }
 
-          
-          
+
+
 
         } catch (error) {
           console.log(error);
           toast.error("Something went wrong");
         }
       };
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
     return (
     <Layout title={"Your Profile"}>
         <h1>Predict Acceptance</h1>
@@ -53,13 +53,13 @@ const PredictAcceptance = () => {
             </div>
         <div className="wrapper32" style={{ height: "600px" }}>
             <form onSubmit={handleSubmit}>
-            <h4 className="title">Predict Acceptance</h4>
-             
-    
-              
-    
-                  
-                  
+            <h4>Predict Acceptance</h4>
+
+
+
+
+
+
             <div className="mb-3">
   <label htmlFor="designSelect" className="form-label"></label>
   <select
@@ -75,7 +75,7 @@ const PredictAcceptance = () => {
 </div>
 
 
-                  
+
  <div className="mb-3">
   <label htmlFor="colourSelect" className="form-label"></label>
   <select
@@ -131,14 +131,14 @@ const PredictAcceptance = () => {
     <option value="">Select Gender</option>
     <option value="Male">Male</option>
     <option value="Female">Female</option>
-   
+
   </select>
 </div>
-             
-    
-    
-    
-    
+
+
+
+
+
               <button type="submit" className="btn btn-primary">
                 Submit
               </button>
