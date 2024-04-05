@@ -211,6 +211,7 @@ const Amount = quant
         <Layout>
                               <h1 className="text-center bg-light p-2 mb-1">
                         {`Hello ${auth?.token && auth?.customer?.name}`}
+                        
                     </h1>
                     <h4 className="text-center">
                         {cart?.length >= 1? `You have ${cart.length} item in your cart ${auth?.token? "":"please login to checkout"}`:"your cart is empty"}
