@@ -6,12 +6,39 @@ import PDFDocument from "pdfkit";
 import slugify from "slugify";
 import braintree from "braintree";
 import dotenv from "dotenv";
+import nodemailer from 'nodemailer';
 import orderModel from "../models/orderModel.js";
 import recommendationModel from "../models/recommendationModel.js";
 import path from 'path';
 
 dotenv.config();
 
+
+
+const sendEmail = async (to, subject, text) => {
+  try {
+    // Create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'azwad.aziz2002@gmail.com', // Your email
+        pass: 'hvhk xzxa fnly lzcq', // Your password
+      },
+    });
+
+    // Send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: '"Abar Porun" <your@gmail.com>', // Sender address
+      to: to, // List of receivers
+      subject: subject, // Subject line
+      text: text, // Plain text body
+    });
+
+    console.log('Message sent: %s', info.messageId);
+  } catch (error) {
+    console.error('Error occurred while sending email:', error);
+  }
+};
 
 //payment gateway
 var gateway = new braintree.BraintreeGateway({
@@ -488,7 +515,9 @@ export const productCategoryController = async (req, res) => {
 //payment
 export const brainTreePaymentController = async (req, res) => {
   try {
-    const { nonce, cart , Customer_ID , currentDate, currentTime,quant ,Price} = req.body;
+    const { nonce, cart , Customer_ID , currentDate, currentTime,quant ,Price , newAddress,Email} = req.body;
+    
+    
     
     let newTransaction = gateway.transaction.sale(
       {
@@ -499,8 +528,11 @@ export const brainTreePaymentController = async (req, res) => {
           submitForSettlement: true,
         },
       },
+      
       function (error, result) {
+        
         if (result) {
+          
           const order = new orderModel({
             products: cart,
             payment: result,
@@ -509,6 +541,7 @@ export const brainTreePaymentController = async (req, res) => {
             Time:currentTime,
             Quantity:quant,
             Price:Price,
+            Address:newAddress,
           }).save();
           res.json({ ok: true });
         } else {
@@ -516,10 +549,39 @@ export const brainTreePaymentController = async (req, res) => {
         }
       }
     );
+
+
+
+    
+
+
+    
   } catch (error) {
     console.log(error);
   }
 };
+
+export const sendPurchaseEmail = async (req,res) => {
+  try {
+
+    const { Email,Price} = req.body;
+  
+
+  const orders = await orderModel.find({}).sort({ createdAt: -1 }).limit(1);
+const lastOrder = orders[0];
+
+const lastOrderID = lastOrder._id.toString().substring(lastOrder._id.length - 5);
+
+    await sendEmail(Email, 'Purchase Successful!', `Thank you for ordering from Abar Porun. Your ID is ${lastOrderID.slice(-7,-1)}. \nPlease use this Order_ID to track your order\nTotal price of your order is: ${Price}`);
+    res.json({ ok: true });
+  } catch (error) {
+    console.error('Error occurred while sending email:', error);
+  }
+};
+
+
+
+
 
 
 //update stock
@@ -628,7 +690,10 @@ export const createInvoice = async (req, res) => {
   try {
     // Extract data from the request body
     const { currentDate,Amount,Price,items} = req.body;
-
+    const orders = await orderModel.find({}).sort({ createdAt: -1 }).limit(1);
+    const lastOrder = orders[0];
+    
+    const lastOrderID = lastOrder._id.toString().substring(lastOrder._id.length - 5);
     // Create a new PDF document
     const doc = new PDFDocument();
     const filename = 'invoice.pdf';
@@ -652,9 +717,9 @@ export const createInvoice = async (req, res) => {
     doc.text('Invoice\n\n\n\n', { align: 'center' });
     
     
-    doc.text(`BILL_ID                            TOTAL                            QUANTITY                            DATE\n`);
+    doc.text(`Order_ID                            TOTAL                            QUANTITY                            DATE\n`);
     doc.text(`____________________________________________________________________\n`);
-    doc.text(`${Bill_ID}                                    ${Price}                                   ${Amount}                            ${date}`);
+    doc.text(`${lastOrderID.slice(-7,-1)}                                    ${Price}                                   ${Amount}                            ${date}`);
     
 
         // Add rows dynamically for each item in the cart using map

@@ -22,6 +22,7 @@ import {
   updateStockIncController,
   clearStockController,
   productFiltersController2,
+  sendPurchaseEmail,
  
 } from "../controllers/productController.js";
 import {  requireSignIn,isAdmin } from "../middlewares/authMiddleware.js";
@@ -72,6 +73,8 @@ router.delete("/clear-stock", clearStockController);
 //filter product
 router.post("/product-filters", productFiltersController);
 
+//send purchse Email
+router.post("/purchase-email", sendPurchaseEmail);
 
 
 //only price filter product

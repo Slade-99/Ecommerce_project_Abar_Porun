@@ -103,6 +103,7 @@ const CreateProduct = () => {
                 bordered={false}
                 placeholder="Select a category"
                 size="large"
+                style={{  fontWeight:"bold" }}
                 showSearch
                 className="form-select-mb-3"
                 onChange={(value) => {
@@ -156,6 +157,7 @@ const CreateProduct = () => {
                   value={description}
                   placeholder="Product Description"
                   className="form-control"
+                  style={{ fontWeight: 'bold' }}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
@@ -166,6 +168,7 @@ const CreateProduct = () => {
     value={colour}
     onChange={(e) => setColour(e.target.value)}
     className="form-control"
+    style={{ fontWeight: 'bold' }}
     id="colourSelect"
   >
     <option value="">Select Colour</option>
@@ -182,6 +185,7 @@ const CreateProduct = () => {
     onChange={(e) => setDesign(e.target.value)}
     className="form-control"
     id="designSelect"
+    style={{ fontWeight: 'bold' }}
   >
     <option value="">Select Design</option>
     <option value="Solid">Solid</option>
@@ -197,8 +201,10 @@ const CreateProduct = () => {
     onChange={(e) => setFabric_type(e.target.value)}
     className="form-control"
     id="fabricTypeSelect"
+    style={{ fontWeight: 'bold' }}
+    
   >
-    <option value="">Select Fabric Type</option>
+    <option value="" >Select Fabric Type</option>
     <option value="Silk">Silk</option>
     <option value="Cotton">Cotton</option>
     <option value="Lawn">Lawn</option>
@@ -212,8 +218,11 @@ const CreateProduct = () => {
                   type="number"
                   value={size}
                   placeholder="Enter the size"
+                  style={{ fontWeight: 'bold' }}
                   className="form-control"
+                  
                   onChange={(e) => setSize(e.target.value)}
+                  
                 />
               </div>
 
@@ -226,6 +235,7 @@ const CreateProduct = () => {
                   value={price}
                   placeholder="write a Price"
                   className="form-control"
+                  style={{ fontWeight: 'bold' }}
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
@@ -241,6 +251,7 @@ const CreateProduct = () => {
                   type="number"
                   value={quantity}
                   placeholder="write a quantity"
+                  style={{ fontWeight: 'bold' }}
                   className="form-control"
                   onChange={(e) => setQuantity(e.target.value)}
                 />
@@ -256,6 +267,7 @@ const CreateProduct = () => {
                   type="text"
                   value={review}
                   placeholder="Review of the product"
+                  style={{ fontWeight: 'bold' }}
                   className="form-control"
                   onChange={(e) => setReview(e.target.value)}
                 />
