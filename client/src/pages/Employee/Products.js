@@ -153,11 +153,11 @@ const Products = () => {
                  
                  <div className="card-body">
                     <h5 className="card-title">{p.description}</h5>
-                    <p className="card-text">{p.fabric_type}</p>
+                    <p className="card-text" style={{ fontSize: '20px' }}>{p.fabric_type}</p>
                     <button class="btn btn-primary ms-1" onClick={() => navigate(`./update-product/${p.slug}`)}>Update Details</button>
                   
                   
-                    <button className="btn btn-secondary ms-1" onClick={()=>{setCart([...cart,p]); localStorage.setItem('cart',JSON.stringify([...cart,p])); toast.success("item added to cart");}}>ADD TO CART</button>
+                    
                   
                   </div>
                 
@@ -178,10 +178,11 @@ const Products = () => {
         <div className="col-md-5-2">
         
           <div className="col">
-            <h5 style={{ fontSize: '25px' }}>Filter by Category</h5>
+            <h5 style={{ fontSize: '25px', fontWeight:"bold" }}>Filter by Category</h5>
             {categories?.map((c) => (
               <Checkbox
                 key={c._id}
+                style={{ fontSize: '15px' , fontWeight:"bold"}}
                 onChange={(e) => handleFilter(e.target.checked, c._id)}
               >
                 {c.name}
@@ -202,10 +203,10 @@ const Products = () => {
           
           
           <div className="column">
-          <h4 style={{ fontSize: '25px' }}>Filter by Price</h4>
+          <h4 style={{ fontSize: '25px',fontWeight:"bold" }}>Filter by Price</h4>
             <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Prices?.map((p) => (
-                <div key={p._id}>
+                <div key={p._id}  style={{ fontSize: '15px' , fontWeight:"bold"}}>
                   <Radio value={p.array}>{p.name}</Radio>
                 </div>
               ))}

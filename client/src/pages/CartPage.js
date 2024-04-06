@@ -13,14 +13,16 @@ const CartPage=()=>{
     
     const[cart,setCart]=useCart();
     const [clientToken, setClientToken] = useState("");
+    const [newAddress, setNewAddress] = useState(auth?.customer?.address);
     const [proceedToPayment, setProceedToPayment] = useState(false);
   const [instance, setInstance] = useState("");
   const [loading, setLoading] = useState(false);
     const navigate=useNavigate();
     const Customer_ID = auth?.customer?.ID;
+    const Email = auth?.customer?.email;
      const currentDate = new Date();
      const currentTime = currentDate.toLocaleTimeString();
-    
+     
      const handleQuantityChange =  async (product,productId, change) => {
       const { data } = await axios.get(
         `/api/v1/product/get-product/${product.slug}`
@@ -125,7 +127,11 @@ const CartPage=()=>{
         currentTime,
         quant,
         Price,
+        newAddress,
+        Email,
       });
+
+      
 
       const dictionary = new Map([
        
@@ -207,6 +213,14 @@ const Amount = quant
       console.log(error);
       setLoading(false);
     }
+
+
+    const {data1} = await axios.post("/api/v1/product/purchase-email", {
+      Email,
+      Price,
+      
+      
+    });
   };
 
 
@@ -301,22 +315,24 @@ const Amount = quant
             
             
             <div className="col-md-4-text-center">
+              
                     <h1>Cart Summary</h1>
+                    
                     <p> Total | Checkout | Payment</p>
                     <h4>Total:{totalPrice()} </h4>
                 
                     {auth?.customer?.address ? (
               <>
+              <h4>Current Address</h4>
+      <input
+        type="text"
+        value={newAddress}
+        onChange={(e) => setNewAddress(e.target.value)}
+        className="input-address"
+      />
                 <div className="mb-3">
-                  <h4>Current Address</h4>
-                  <h5>{auth?.customer?.address}</h5>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => navigate("/dashboard/customer/profile")}
-                  >
-                    Update Address
-                  </button>
-
+                  
+                
                   <button
               className="btn btn-success"
               onClick={() => setProceedToPayment(true)}
