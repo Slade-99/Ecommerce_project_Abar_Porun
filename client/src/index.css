@@ -348,6 +348,7 @@ body::-webkit-scrollbar
   
   transition: height .2s ease;
   overflow-y: auto;
+  transform: translate(0px,0px);
 }
 
 
@@ -1047,8 +1048,8 @@ background-color: #e59393;
 
 .container-fluid .col-md-8 {
   position: relative;
-  width: 300px;
-  height: 700px;
+  width: 1000px;
+  height: 300px;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, .5);
   border-radius: 20px;
@@ -1059,38 +1060,41 @@ background-color: #e59393;
    /* Start alignment to have the cards stack from the top */
    /* Add vertical scrollbar when needed */
   max-width: 80%;
-  transform: translate(450px, -435px);
+  transform: translate(400px, 0px);
   max-width: 1400;
   margin-bottom: 20px;
 }
 
-.row-m-2 .col-md-44{
+.col-md-8 .col-md-55{
 
+  top: 00px;
+  left: 0px;
   position: absolute;
   width: 200px;
-  height: 500px;
+  height: 300px;
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, .5);
+  border: 0px solid rgba(255, 255, 255, .5);
   border-radius: 20px;
   backdrop-filter: blur(20px);
   box-shadow: 0 0 30px rgba(0, 0, 0, .5);
-   /* Allow cards to wrap to the next line */
+  display: flex;
   justify-content: center;
-   /* Start alignment to have the cards stack from the top */
-   /* Add vertical scrollbar when needed */
-  max-width: 20%;
-  transform: translate(450px, 0px);
-  max-width: 1400;
+  align-items: center;
+  overflow: hidden;
+  transition: height .2s ease;
 
 }
 
-.row-m-2 .col-md-22{
+
+
+
+.col-md-8 .col-md-22{
 
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 800px;
+  height: 300px;
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, .5);
+  border: 0px solid rgba(255, 255, 255, .5);
   border-radius: 20px;
   backdrop-filter: blur(20px);
   box-shadow: 0 0 30px rgba(0, 0, 0, .5);
@@ -1099,17 +1103,17 @@ background-color: #e59393;
   align-items: flex-end; /* Start alignment to have the cards stack from the top */
   overflow-y: auto; /* Add vertical scrollbar when needed */
   max-width: 80%;
-  transform: translate(800px, 0px);
+  transform: translate(201px, 0px);
   max-width: 1400;
 
 }
 
 
 .col-md-4-text-center  {
-  top: 150px;
-  left: 1500px;
-  position: absolute;
-  width: 400px;
+  top: 000px;
+  left: -50px;
+  position: relative;
+  width: 2000px;
   height: 320px;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, .5);
@@ -1125,11 +1129,11 @@ background-color: #e59393;
 }
 
 .col-md-3-text-center  {
-  top: 600px;
-  left: 1500px;
+  top: 60px;
+  left: 0px;
   position: absolute;
-  width: 400px;
-  height: 320px;
+  width: 2000px;
+  height: 850px;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, .5);
   border-radius: 20px;
@@ -1435,4 +1439,97 @@ background-color: #e59393;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
   gap: 15px;
+}
+
+
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Styling the outer part of the spinner */
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+
+
+/* Styling the plus and minus buttons */
+/* Styling the plus and minus buttons */
+.plus{
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 1;
+  display: block; /* Change to block-level elements */
+  transform: translate(174px, -40px); /* Adjust the position */
+  position: absolute;
+  opacity: 0; /* Initially invisible */
+  transition: opacity 0.3s ease; /* Smooth transition */
+
+}
+.minus {
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 1;
+  display: block; /* Change to block-level elements */
+  transform: translate(174px, -30px); /* Adjust the position */
+  position: absolute;
+  opacity: 0; /* Initially invisible */
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+/* Styling the minus button */
+.minus {
+  margin-top: 2px; /* Adjust margin-top to create space between buttons */
+}
+
+/* Show the buttons on hover */
+.plus:hover,
+.minus:hover {
+  opacity: 1;
+}
+
+
+
+
+
+/* CART PAGE BUTTONS*/
+.quantity-control {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.quantity-control button {
+  padding: 5px 10px;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #e1e2d1; /* White background */
+  border: none;
+  color: #000000; /* Text color */
+  
+  transform: translate(140px,-40px);
+  position: relative;
+}
+
+.quantity-control button:hover {
+  background-color: #e9e9dd; /* White background */
+
+  position: relative;
+}
+
+.quantity {
+  margin: 0 10px;
+  font-size: 18px;
+  position: relative;
 }
