@@ -117,8 +117,8 @@ const CreateCategory = () => {
                   
                 <thead>
                   <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" style={{ fontSize: '20px' }}>Name</th>
+                    <th scope="col" style={{ fontSize: '20px' }}>Actions</th>
                   </tr>
                 </thead>
                 
@@ -128,7 +128,7 @@ const CreateCategory = () => {
                   {categories?.map((c) => (
                     <>
                       <tr>
-                        <td key={c._id}>{c.name}</td>
+                        <td style={{ fontSize: '18px' }} key={c._id}>{c.name} </td>
                         <td>
                           
                           

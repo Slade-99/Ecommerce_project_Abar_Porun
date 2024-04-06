@@ -10,11 +10,11 @@ const { Option } = Select;
 
 const AdminOrders = () => {
   const [status, setStatus] = useState([
-    "Not Process",
+    "Not Processing",
     "Processing",
     "Shipped",
-    "deliverd",
-    "cancel",
+    "Delivered",
+    "Cancelled",
   ]);
   const [changeStatus, setCHangeStatus] = useState("");
   const [orders, setOrders] = useState([]);
@@ -56,22 +56,26 @@ const AdminOrders = () => {
                 <section class="table__body">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Status</th>
-                      
-                      <th scope="col"> date</th>
-                      <th scope="col">Payment</th>
-                      <th scope="col">Quantity</th>
+                          <th scope="col"style={{ fontSize: '20px' }} >#</th>
+                          <th scope="col" style={{ fontSize: '20px' }}>ID</th>
+                          <th scope="col" style={{ fontSize: '20px' }}>Status</th>
+                          
+                          <th scope="col" style={{ fontSize: '20px' }}> date</th>
+                          <th scope="col" style={{ fontSize: '20px' }}>Address</th>
+                          <th scope="col" style={{ fontSize: '20px' }}>Price</th>
+                          <th scope="col" style={{ fontSize: '20px' }}>Quantity</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{i + 1}</td>
-                      <td>
+                      <td style={{ fontSize: '15px' }}>{i + 1}</td>
+                      <td style={{ fontSize: '15px' }}>{o?._id.slice(-7,-1)}</td>
+                      <td style={{ fontSize: '17px', fontWeight:"bold" }}>
                       <Select
                           bordered={false}
                           onChange={(value) => handleChange(o._id, value)}
                           defaultValue={o?.status}
+                          style={{ fontWeight:"bold" }}
                         >
                           {status.map((s, i) => (
                             <Option key={i} value={s}>
@@ -83,9 +87,11 @@ const AdminOrders = () => {
                         
                         </td>
                      
-                      <td>{o?.Date.split("T")[0]}</td>
-                      <td>{o?.payment.success ? "Success" : "Failed"}</td>
-                      <td>{o?.Quantity}</td>
+                        <td style={{ fontSize: '15px' }}>{o?.Date.split("T")[0]}</td>
+                          <td style={{ fontSize: '15px' }} >{o?.Address}</td>
+                          
+                          <td style={{ fontSize: '15px' }}>{o?.Price}</td>
+                          <td style={{ fontSize: '15px' }}>{o?.Quantity}</td>
                     </tr>
                   </tbody>
                   </section>

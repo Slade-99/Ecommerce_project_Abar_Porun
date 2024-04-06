@@ -137,7 +137,7 @@ const HomePage = () => {
 
 
     <Layout>
-      <h1>Welcome to Our Website</h1>
+      <h1 style={{ fontFamily:"cursive" , fontWeight:"bold" }}>Welcome to Our Website</h1>
       <div className='container-fluid'>
       
       
@@ -171,7 +171,7 @@ const HomePage = () => {
                  
                  <div className="card-body">
                     <h5 className="card-title">{p.description}</h5>
-                    <p className="card-text">{p.fabric_type}</p>
+                    <p className="card-text" style={{ fontSize: '20px' }}>{p.fabric_type}</p>
                     
                     <button
                         className="btn btn-secondary ms-1"

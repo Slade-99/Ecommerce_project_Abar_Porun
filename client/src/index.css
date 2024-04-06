@@ -1182,7 +1182,7 @@ background-color: #e59393;
 
 .container-fluid-2{
   position: relative;
-  height: 1000px;
+  height: 950px;
   width: 5000px;
   
 }
@@ -1532,4 +1532,72 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0 10px;
   font-size: 18px;
   position: relative;
+}
+
+
+
+/* Style for the input box */
+.input-address {
+  width: 20%; /* Set the width to fill the container */
+  padding: 8px; /* Add padding */
+  margin-bottom: 10px; /* Add some space below the input */
+  border: 0px solid #ccc; /* Add a border */
+  border-radius: 0px; /* Add border radius for rounded corners */
+  font-size: 16px; /* Set the font size */
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Style for the buttons */
+.btn {
+  margin-right: 0px; /* Add some space between buttons */
+}
+
+.star-rating {
+  color: rgb(255, 191, 0); /* Set the color of the star rating */
+}
+
+.star {
+  color: rgb(255, 179, 0); /* Set the color of individual stars */
+}
+
+
+.plus1{
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 1;
+  display: block; /* Change to block-level elements */
+  transform: translate(44px, -40px); /* Adjust the position */
+  position: absolute;
+  opacity: 0; /* Initially invisible */
+  transition: opacity 0.3s ease; /* Smooth transition */
+
+}
+.minus1 {
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 16px;
+  font-size: 16px;
+  line-height: 1;
+  display: block; /* Change to block-level elements */
+  transform: translate(44px, -30px); /* Adjust the position */
+  position: absolute;
+  opacity: 0; /* Initially invisible */
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+/* Styling the minus button */
+.minus1 {
+  margin-top: 2px; /* Adjust margin-top to create space between buttons */
+}
+
+/* Show the buttons on hover */
+.plus1:hover,
+.minus1:hover {
+  opacity: 1;
 }

@@ -94,69 +94,73 @@ const Profile = () => {
         </div>
     <div className="wrapper33" >
         <form onSubmit={handleSubmit}>
-          <h4 className="title">Update Profile</h4>
+          <h2 className="title">Update Profile</h2>
 
           <div className="mb-3">
+            <h5 style={{ fontSize: '15px' }}>Name</h5>
                 <textarea
                   type="text"
                   value={Name}
                   placeholder="write a description"
                   className="form-control"
+                  style={{ fontWeight: 'bold' }}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
 
+              
               <div className="mb-3">
-                <textarea
-                  type="text"
-                  value={Password}
-                  placeholder="write a description"
-                  className="form-control"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="mb-3">
+              <h5 style={{ fontSize: '15px' }}>Email</h5>
                 <textarea
                   type="text"
                   value={Email}
                   placeholder="write a description"
                   className="form-control"
+                  style={{ fontWeight: 'bold' }}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="mb-3">
+              <h5 style={{ fontSize: '15px' }}> Address</h5>
                 <textarea
                   type="text"
                   value={Address}
                   placeholder="write a description"
                   className="form-control"
+                  style={{ fontWeight: 'bold' }}
                   onChange={(e) => setAddress(e.target.value)}
                 />
               </div>
               <div className="mb-3">
+              <h5 style={{ fontSize: '15px' }}>Phone</h5>
                 <textarea
                   type="text"
                   value={Phone}
                   placeholder="write a description"
                   className="form-control"
+                  style={{ fontWeight: 'bold' }}
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
               <div className="mb-3">
+              <h5 style={{ fontSize: '15px' }}>Gender</h5>
                 <textarea
                   type="text"
                   value={Gender}
                   placeholder="write a description"
                   className="form-control"
+                  style={{ fontWeight: 'bold' }}
                   onChange={(e) => setGender(e.target.value)}
                 />
               </div>
               <div className="mb-3">
+              <h5 style={{ fontSize: '15px' }} >Age</h5>
                 <textarea
                   type="text"
                   value={Question}
                   placeholder="write a description"
                   className="form-control"
+                  style={{ fontWeight: 'bold' }}
                   onChange={(e) => setAge(e.target.value)}
                 />
               </div>

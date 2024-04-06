@@ -45,27 +45,28 @@ const Orders = () => {
                     <section class="table__body">
                       <thead>
                         <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">ID</th>
-                          <th scope="col">Status</th>
+                          <th scope="col" style={{ fontSize: '20px' }}>#</th>
+                          <th scope="col" style={{ fontSize: '20px' }}>ID</th>
+                          <th scope="col" style={{ fontSize: '20px' }}>Status</th>
                           
-                          <th scope="col"> date</th>
-                          <th scope="col">Payment</th>
-                          <th scope="col">Price</th>
-                          <th scope="col">Quantity</th>
+                          <th scope="col" style={{ fontSize: '20px' }}> date</th>
+                          <th scope="col" style={{ fontSize: '20px' }}>Address</th>
+                          <th scope="col" style={{ fontSize: '20px' }}>Price</th>
+                          <th scope="col" style={{ fontSize: '20px' }}>Quantity</th>
                           
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>{i + 1}</td>
-                          <td>{o?._id.slice(-7,-1)}</td>
-                          <td>{o?.status}</td>
+                          <td style={{ fontSize: '15px' }}>{i + 1}</td>
+                          <td style={{ fontSize: '15px' }}>{o?._id.slice(-7,-1)}</td>
+                          <td style={{ fontSize: '15px' }}>{o?.status}</td>
                          
-                          <td>{o?.Date.split("T")[0]}</td>
-                          <td>{o?.payment.success ? "Success" : "Failed"}</td>
-                          <td>{o?.Price}</td>
-                          <td>{o?.Quantity}</td>
+                          <td style={{ fontSize: '15px' }}>{o?.Date.split("T")[0]}</td>
+                          <td style={{ fontSize: '15px' }}>{o?.Address}</td>
+                          
+                          <td style={{ fontSize: '15px' }}>{o?.Price}</td>
+                          <td style={{ fontSize: '15px' }}>{o?.Quantity}</td>
                         </tr>
                       </tbody>
                       </section>
