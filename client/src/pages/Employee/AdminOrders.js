@@ -85,7 +85,7 @@ const AdminOrders = () => {
                      
                       <td>{o?.Date.split("T")[0]}</td>
                       <td>{o?.payment.success ? "Success" : "Failed"}</td>
-                      <td>{o?.products?.length}</td>
+                      <td>{o?.Quantity}</td>
                     </tr>
                   </tbody>
                   </section>

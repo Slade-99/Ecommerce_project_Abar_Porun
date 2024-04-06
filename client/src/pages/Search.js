@@ -23,7 +23,25 @@ const Search = () => {
  
     const [values,setValues]=useSearch();
     const navigate = useNavigate();
-    
+    const handleIncrement = (productId,q) => {
+      const updatedQuantities = { ...quantities };
+      const currentQuantity = updatedQuantities[productId] || 0;
+      
+      if( currentQuantity < q){
+      updatedQuantities[productId] = currentQuantity + 1;
+      setQuantities(updatedQuantities);
+      }
+    };
+  
+    // Function to handle decrementing quantity
+    const handleDecrement = (productId) => {
+      const updatedQuantities = { ...quantities };
+      const currentQuantity = updatedQuantities[productId] || 0;
+      if (currentQuantity > 0) {
+        updatedQuantities[productId] = currentQuantity - 1;
+        setQuantities(updatedQuantities);
+      }
+    };
 
     const addToCart = (product) => {
       const quantityToAdd = quantities[product._id] || 1; // Default to 1 if no quantity is specified
@@ -88,29 +106,44 @@ const Search = () => {
               <div className="card-body">
                   <h5 className="card-title">{p.description}</h5>
                   <p className="card-text">{p.fabric_type}</p>
-                  <button class="btn btn-primary ms-1" onClick={() => {
+                  
+                  
+                  <button
+                        className="btn btn-secondary ms-1"
+                        onClick={() => addToCart(p)}
+                        disabled={p.quantity === 0}
+                      >
+                        ADD TO CART
+                    </button>
+              
+                  
+                  
+                  
+                  
+                    <input
+                      type="number"
+                      min="0"
+                      max={p.quantity}
+                      value={quantities[p._id] || ""}
+                      onChange={(e) => setQuantities({ ...quantities, [p._id]: parseInt(e.target.value) })}
+                      className="form-control"
+                      style={{ width: "80px", display: "inline-block", margin: "5px 0" }}
+                      />
+                      <button className="plus" onClick={() => handleIncrement(p._id,p.quantity)}>+</button>
+                      <button className="minus" onClick={() => handleDecrement(p._id)}>-</button>
+                      
+                      
+                      
+                    <button class="btn btn-primary ms-1" onClick={() => {
                        if (admin_id) {
                      navigate(`/dashboard/employee_admin/product/update-product/${p.slug}`);
                        } else {
                         navigate(`/product/${p.slug}`);
                         }
                         }}>More Details</button>
-                  <input
-                        type="number"
-                        min="0"
-                        max={p.quantity}
-                        value={quantities[p._id] || ""}
-                        onChange={(e) => setQuantities({ ...quantities, [p._id]: parseInt(e.target.value) })}
-                        className="form-control"
-                        style={{ width: "70px", display: "inline-block", margin: "5px 0" }}
-                      />
-                      <button
-                        className="btn btn-secondary ms-1"
-                        onClick={() => addToCart(p)}
-                        disabled={p.quantity === 0}
-                      >
-                        ADD TO CART
-                      </button>
+              
+              
+              
               </div>
           </div>
                 
