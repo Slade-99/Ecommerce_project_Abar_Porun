@@ -13,15 +13,35 @@ const CartPage=()=>{
     
     const[cart,setCart]=useCart();
     const [clientToken, setClientToken] = useState("");
-    
+    const [proceedToPayment, setProceedToPayment] = useState(false);
   const [instance, setInstance] = useState("");
   const [loading, setLoading] = useState(false);
     const navigate=useNavigate();
     const Customer_ID = auth?.customer?.ID;
      const currentDate = new Date();
      const currentTime = currentDate.toLocaleTimeString();
-     
-     
+    
+     const handleQuantityChange =  async (product,productId, change) => {
+      const { data } = await axios.get(
+        `/api/v1/product/get-product/${product.slug}`
+      );
+
+      const original_quantity = data.product.quantity;
+      const updatedCart = cart.map(item => {
+        if (item._id === productId) {
+
+          
+          if(item.quantity<original_quantity || change!=1){
+          const newQuantity = item.quantity + change;
+          // Ensure quantity doesn't go below 1
+          item.quantity = newQuantity < 1 ? 1 : newQuantity;
+          }
+        }
+        return item;
+      });
+      setCart(updatedCart);
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
+    };
      
      
     //total price
@@ -209,10 +229,18 @@ const Amount = quant
 
     return (
         <Layout>
+          {!proceedToPayment ? (
+            <>
+
+          
                               <h1 className="text-center bg-light p-2 mb-1">
                         {`Hello ${auth?.token && auth?.customer?.name}`}
                         
                     </h1>
+
+
+
+              
                     <h4 className="text-center">
                         {cart?.length >= 1? `You have ${cart.length} item in your cart ${auth?.token? "":"please login to checkout"}`:"your cart is empty"}
                     </h4>
@@ -220,9 +248,7 @@ const Amount = quant
             <div className="row">
               
               
-            <div className="col-md-3">
-          <UserMenu />
-        </div>
+            
                 
   
                 
@@ -237,21 +263,28 @@ const Amount = quant
                     
                         
                             
-                                <div className="col-md-44"> 
-                                <img
+                                <div className="col-md-59999"> 
+                                <div className="col-md-55">
+                              <img
                                     src={`/api/v1/product/product-photo/${p._id}`}
                                     className="card-img-top"
                                     alt={p.name}
-                                    width="800px"
-                                    height={"800px"}
+                                    width="200px"
+                                    height={"200px"}
                                 />
-                                    
-                                    <div className="col-md-44"> 
+                                    </div>
+                                    <div className="col-md-22"> 
                                 
                                 <h4>Name: {p.description}</h4>
                                     <h4>Fabric: {p.fabric_type}</h4>
                                     <h4>Price: {p.price}</h4>
                                     <h4>Quantity: {p.quantity}</h4>
+                                    <div className="quantity-control">
+                                    <button className="btn btn" onClick={() => handleQuantityChange(p,p._id, -1)}>-</button>
+                                    
+                                    <button className="btn btn" onClick={() => handleQuantityChange(p,p._id, 1)}>+</button>
+                                    </div>
+                                    
                                     <button className ="btn btn-danger" onClick={() => removeCartItem()}>Remove</button>
                                     </div>
                                 </div>
@@ -278,25 +311,49 @@ const Amount = quant
                   <h4>Current Address</h4>
                   <h5>{auth?.customer?.address}</h5>
                   <button
-                    className="btn btn-outline-warning"
+                    className="btn btn-primary"
                     onClick={() => navigate("/dashboard/customer/profile")}
                   >
                     Update Address
                   </button>
+
+                  <button
+              className="btn btn-success"
+              onClick={() => setProceedToPayment(true)}
+            >
+              Proceed To Payment
+            </button>
+
+
+
+
                 </div>
               </>
             ) : (
               <div className="mb-3">
                 {auth?.token ? (
                   <button
-                    className="btn btn-outline-warning"
+                    className="btn btn-primary"
                     onClick={() => navigate("/dashboard/customer/profile")}
                   >
                     Update Address
                   </button>
+
+
+                    
+
+
+
+
+
+
+
+
+
+
                 ) : (
                   <button
-                    className="btn btn-outline-warning"
+                    className="btn btn-primary"
                     onClick={() =>
                       navigate("/login", {
                         state: "/cart",
@@ -313,26 +370,23 @@ const Amount = quant
 
 
             </div>
-            
-            
-                
-                
-                
-                
-                
-                
-                
-                
+          
                 
             </div>
+
+            </>):(
+
+
+
+
             
-              {!clientToken || !cart?.length ? (
-                ""
-              ) : (
+              
+                
+              
                 
                 
                 
-                <>
+               
                 <div className="col-md-3-text-center">
                   <DropIn
                     options={{
@@ -342,21 +396,30 @@ const Amount = quant
                     onInstance={(instance) => setInstance(instance)}
                   />
 
-                  <button
-                    className="btn btn-primary"
-                    onClick={handlePayment}
-                    disabled={loading || !instance || !auth?.customer?.address}
-                  >
-                    {loading ? "Processing ...." : "Make Payment"}
-                  </button>
+<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+  <button
+    className="btn btn-success"
+    onClick={handlePayment}
+    disabled={loading || !instance || !auth?.customer?.address}
+  >
+    {loading ? "Processing ...." : "Make Payment"}
+  </button>
+  <button
+    className="btn btn-danger"
+    onClick={() => setProceedToPayment(false)}
+  >
+    Return to Cart
+  </button>
+</div>
                   </div>
-                </>
+
+                
                 
               
               
-              )}
+             
             
-
+            )};
             
             </Layout>
     );

@@ -58,6 +58,7 @@ function App() {
     <Route  path='customer/profile' element={<Profile/>}/>
     <Route  path='customer/yours' element={<Yours/>}/>
     <Route  path='customer/orders' element={<Orders/>}/>
+    
     <Route  path='customer/reviews/:slug' element={<Reviews/>}/>
     <Route  path='customer' element={<Dashboard/>}/>
     </Route>
