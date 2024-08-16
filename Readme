@@ -1,0 +1,12 @@
+Make a folder 
+Into the folder  run git bash here
+Run git init
+Git clone link
+Dowload and install nodejs
+Download and install Mongodb Compass
+In the .env file of the project copy the mongo url
+Paste the url in MongoDB compass to connect
+Download and install Postman
+Go to client folder, open cmd and 
+npm install react-app
+
